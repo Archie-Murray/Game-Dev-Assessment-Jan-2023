@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fc09f9f416d8d40b9bf4fda7a0460d, type: 3}
+  m_Name: Shotgun Spawn Strategy
+  m_EditorClassIdentifier: 
+  Type: 1
+  Cost: 50
+  Duration: 5
+  Speed: 5
+  projectile: {fileID: 5682708590775422086, guid: d26b7fe7283f173448c8ab670a61336f, type: 3}
+  Count: 6
+  SpreadAngle: 60
