@@ -56,6 +56,7 @@ public class ProjectileSpawnerManager : MonoBehaviour {
                 GameObject firePoint = new GameObject($"{spawnStrategy.Type}");
                 firePoint.transform.parent = socket;
                 firePoint.transform.localPosition = Vector3.zero;
+                firePoint.transform.localRotation = Quaternion.identity;
                 _projectileSpawners[spawnStrategy.Type].Add(new ProjectileSpawner(spawnStrategy, firePoint.transform));
                 return;
             }

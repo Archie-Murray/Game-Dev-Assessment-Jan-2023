@@ -9,4 +9,8 @@ public abstract class ProjectileSpawnStrategy : ScriptableObject {
     public float Speed;
 
     public abstract void Fire(Transform origin);
+
+    public static string Display(Type type) {
+        return type.Name.Replace("SpawnStrategy", "");
+    }
 }

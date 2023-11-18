@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Linear Spawn Strategy", menuName = "Projectile Spawn Strategy/Linear")]
-public class LinearProjectileSpawnStrategy : ProjectileSpawnStrategy {
+public class LinearSpawnStrategy : ProjectileSpawnStrategy {
     public GameObject projectile;
     public float OffsetMagnitude = 2f;
     public override void Fire(Transform origin) {
