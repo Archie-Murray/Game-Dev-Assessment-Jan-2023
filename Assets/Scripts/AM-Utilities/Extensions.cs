@@ -39,16 +39,48 @@ public static class Extensions {
         return gameObject.GetComponent<T>() != null; 
     }
 
+    ///<summary>
+    ///Normalises a Vector3 if its magnitude is larger than one
+    ///</summary>
+    ///<param name="vector">Vector to clamp</param>
     public static void ClampToNormalised(this Vector3 vector) {
         if (vector.magnitude > 1f) {
             vector.Normalize();
         }
     }
 
-    public static Vector2 FromDegrees(this Vector2 _, float radians) {
-        return new Vector2(Mathf.Sin(radians), Mathf.Cos(radians));
+    ///<summary>
+    ///Modifies the specified component(s) of a vector
+    ///</summary>
+    ///<param name="vector">Vector to modifiy</param>
+    ///<param name="x">New x value if specified</param>
+    ///<param name="y">New y value if specified</param>
+    ///<param name="z">New z value if specified</param>
+    ///<returns>Modified vector</returns>
+    public static Vector3 With(this Vector3 vector, float? x, float? y, float? z) {
+        return new Vector3(x ?? vector.x, y ?? vector.y, z ?? vector.z);
     }
 
+    ///<summary>
+    ///Adds to the specified component(s) of a vector
+    ///</summary>
+    ///<param name="vector">Vector to modifiy</param>
+    ///<param name="x">Increase in x value if specified</param>
+    ///<param name="y">Increase in y value if specified</param>
+    ///<param name="z">Increase in z value if specified</param>
+    ///<returns>Modified vector</returns>
+    public static Vector3 Add(this Vector3 vector, float? x, float? y, float? z) {
+        return new Vector3(vector.x + (x ?? 0f), vector.y + (y ?? 0f), vector.z + (z ?? 0f));
+    }
+    
+    ///<summary>
+    ///Changes the colour of the material on the provided SpriteRenderer for the specified time
+    ///using a coroutine that must have the MonoBehaviour to attach the coroutine to
+    ///</summary>
+    ///<param name="spriteRenderer">SpriteRenderer to change material colour of</param>
+    ///<param name="colour">Colour to change SpriteRenderer material to</param>
+    ///<param name="time">Time until colour changes back</param>
+    ///<param name="monoBehaviour">MonoBehaviour to start coroutine on</param>
     public static void FlashColour(this SpriteRenderer spriteRenderer, Color colour, float time, MonoBehaviour monoBehaviour) {        
         monoBehaviour.StartCoroutine(Flash(spriteRenderer, colour, time));
     }
