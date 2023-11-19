@@ -39,10 +39,26 @@ public static class Extensions {
         return gameObject.GetComponent<T>() != null; 
     }
 
+    ///<summary>
+    ///Normalises a Vector3 if its magnitude is larger than one
+    ///</summary>
+    ///<param name="vector">Vector to clamp</param>
     public static void ClampToNormalised(this Vector3 vector) {
         if (vector.magnitude > 1f) {
             vector.Normalize();
         }
+    }
+
+    ///<summary>
+    ///Modifies the specified component of a vector
+    ///</summary>
+    ///<param name="vector">Vector to modifiy</param>
+    ///<param name="x">New x value if specified</param>
+    ///<param name="y">New y value if specified</param>
+    ///<param name="z">New z value if specified</param>
+    ///<returns>Modified vector</returns>
+    public static Vector3 With(this Vector3 vector, float? x, float? y, float? z) {
+        return new Vector3(x ?? vector.x, y ?? vector.y, z ?? vector.z);
     }
 
     public static Vector2 FromDegrees(this Vector2 _, float radians) {
