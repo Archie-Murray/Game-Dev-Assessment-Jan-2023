@@ -39,6 +39,18 @@ public static class Extensions {
         return gameObject.GetComponent<T>() != null; 
     }
 
+    /// <summary>
+    /// Allows for use of null propogation on Unity Components as Unity uses
+    /// null as 'marked for destroying', for example:
+    /// <code>
+    /// float value = GetComponent&lt;MagicType&gt;().OrNull&lt;MagicType&gt;()?.MagicFloatField ?? _defaultMagicFloatValue;
+    /// </code>
+    /// </summary>
+    /// <typeparam name="T">Type of UnityObject to check for being actually bull</typeparam>
+    /// <param name="obj">Object to check for null reference on</param>
+    /// <returns>T or null if marked as null</returns>
+    public static T OrNull<T>(this T obj) where T : UnityEngine.Object => obj ? obj : null;
+
     ///<summary>
     ///Normalises a Vector3 if its magnitude is larger than one
     ///</summary>
@@ -59,6 +71,7 @@ public static class Extensions {
     ///<returns>Modified vector</returns>
     public static Vector3 With(this Vector3 vector, float? x, float? y, float? z) {
         return new Vector3(x ?? vector.x, y ?? vector.y, z ?? vector.z);
+        
     }
 
     ///<summary>
