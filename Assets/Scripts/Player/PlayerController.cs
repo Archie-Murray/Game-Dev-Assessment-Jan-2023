@@ -99,4 +99,13 @@ public class PlayerController : MonoBehaviour {
         }
         _rb2D.velocity = _velocity;
     }
+    
+    IEnumerator Test()
+    {
+        while (true)
+        {
+            // Logic
+            yield return Yielders.WaitForSeconds(1f);
+        }
+    }
 }

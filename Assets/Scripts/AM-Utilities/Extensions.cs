@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utilities;
 
 public static class Extensions {
     public static IEnumerable<Enum> GetFlags(this Enum flags) {
@@ -101,7 +102,7 @@ public static class Extensions {
     private static IEnumerator Flash(SpriteRenderer spriteRenderer, Color colour, float time) { 
         Color original = spriteRenderer.material.color;
         spriteRenderer.material.color = colour;
-        yield return new WaitForSeconds(time);
+        yield return Yielders.WaitForSeconds(time);
         spriteRenderer.material.color = original;
     }
 
