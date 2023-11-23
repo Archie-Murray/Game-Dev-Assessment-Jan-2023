@@ -2,23 +2,23 @@
 using System.Reflection;
 
 public class Singleton<T> : MonoBehaviour where T : Component {
-    protected static T instance;
-    public static bool HasInstance => instance != null;
-    public static T TryGetInstance() => HasInstance ? instance : null;
-    public static T Current => instance;
+    protected static T _instance;
+    public static bool HasInstance => _instance != null;
+    public static T TryGetInstance() => HasInstance ? _instance : null;
+    public static T Current => _instance;
 
     public static T Instance {
         get {
-            if (instance == null) {
-                instance = FindFirstObjectByType<T>();
-                if (instance == null) {
+            if (_instance == null) {
+                _instance = FindFirstObjectByType<T>();
+                if (_instance == null) {
                     GameObject obj = new GameObject();
                     obj.name = $"{typeof(T).Name} - AutoCreated";
-                    instance = obj.AddComponent<T>();
+                    _instance = obj.AddComponent<T>();
                 }
             }
 
-            return instance;
+            return _instance;
         }
     }
 
@@ -28,7 +28,7 @@ public class Singleton<T> : MonoBehaviour where T : Component {
         if (!Application.isPlaying) {
             return;
         }
-        instance = this as T;
+        _instance = this as T;
     }
 }
 
@@ -36,17 +36,17 @@ public class PersistentSingleton<T> : Singleton<T> where T : Component {
     
     public static new T Instance {
         get {
-            if (instance == null) {
-                instance = FindFirstObjectByType<T>();
-                if (instance == null) {
+            if (_instance == null) {
+                _instance = FindFirstObjectByType<T>();
+                if (_instance == null) {
                     GameObject obj = new GameObject();
                     obj.name = $"{typeof(T).Name} - AutoCreated";
-                    instance = obj.AddComponent<T>();
+                    _instance = obj.AddComponent<T>();
                     DontDestroyOnLoad(obj);
                 }
             }
 
-            return instance;
+            return _instance;
         }
     }
 
@@ -55,6 +55,6 @@ public class PersistentSingleton<T> : Singleton<T> where T : Component {
             return;
         }
         DontDestroyOnLoad(gameObject);
-        instance = this as T;
+        _instance = this as T;
     }
 }

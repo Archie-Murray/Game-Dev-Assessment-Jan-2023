@@ -10,29 +10,29 @@ public class InputHandler : MonoBehaviour {
     public float SprintInput;
     public bool FireInput;
     public bool HeavyFireInput;
-    public bool SpecialFireInput;
+    public bool MagicFireInput;
 
-    public Controls inputActions;
+    private Controls _inputActions;
 
     public void Awake() {
-        inputActions = new Controls();
-        inputActions.PlayerControls.Move.started += MoveHandle;
-        inputActions.PlayerControls.Move.performed += MoveHandle;
-        inputActions.PlayerControls.Move.canceled += MoveHandle;
-        inputActions.PlayerControls.Dash.started += DashHandle;
-        inputActions.PlayerControls.Dash.performed += ResetDash;
-        inputActions.PlayerControls.Sprint.started += SprintHandle;
-        inputActions.PlayerControls.Sprint.performed += SprintHandle;
-        inputActions.PlayerControls.Sprint.canceled += SprintHandle;
-        inputActions.PlayerControls.Look.started += LookHandle;
-        inputActions.PlayerControls.Look.performed += LookHandle;
-        inputActions.PlayerControls.Look.canceled += LookHandle;
-        inputActions.PlayerControls.Fire.started += FireHandle;
-        inputActions.PlayerControls.Fire.canceled += FireHandle;
-        inputActions.PlayerControls.HeavyFire.started += HeavyFireHandle;
-        inputActions.PlayerControls.HeavyFire.canceled += HeavyFireHandle;
-        inputActions.PlayerControls.SpecialFire.started += SpecialFireHandle;
-        inputActions.PlayerControls.SpecialFire.canceled += SpecialFireHandle; 
+        _inputActions = new Controls();
+        _inputActions.PlayerControls.Move.started += MoveHandle;
+        _inputActions.PlayerControls.Move.performed += MoveHandle;
+        _inputActions.PlayerControls.Move.canceled += MoveHandle;
+        _inputActions.PlayerControls.Dash.started += DashHandle;
+        _inputActions.PlayerControls.Dash.performed += ResetDash;
+        _inputActions.PlayerControls.Sprint.started += SprintHandle;
+        _inputActions.PlayerControls.Sprint.performed += SprintHandle;
+        _inputActions.PlayerControls.Sprint.canceled += SprintHandle;
+        _inputActions.PlayerControls.Look.started += LookHandle;
+        _inputActions.PlayerControls.Look.performed += LookHandle;
+        _inputActions.PlayerControls.Look.canceled += LookHandle;
+        _inputActions.PlayerControls.Fire.started += FireHandle;
+        _inputActions.PlayerControls.Fire.canceled += FireHandle;
+        _inputActions.PlayerControls.HeavyFire.started += HeavyFireHandle;
+        _inputActions.PlayerControls.HeavyFire.canceled += HeavyFireHandle;
+        _inputActions.PlayerControls.SpecialFire.started += MagicFireHandle;
+        _inputActions.PlayerControls.SpecialFire.canceled += MagicFireHandle; 
     }
 
     private void LookHandle(InputAction.CallbackContext context) => MousePosition = context.ReadValue<Vector2>();
@@ -42,11 +42,11 @@ public class InputHandler : MonoBehaviour {
     private void SprintHandle(InputAction.CallbackContext context) => SprintInput = context.ReadValue<float>();
     private void FireHandle(InputAction.CallbackContext context) => FireInput = context.ReadValueAsButton();
     private void HeavyFireHandle(InputAction.CallbackContext context) => HeavyFireInput = context.ReadValueAsButton();
-    private void SpecialFireHandle(InputAction.CallbackContext context) => SpecialFireInput = context.ReadValueAsButton();
+    private void MagicFireHandle(InputAction.CallbackContext context) => MagicFireInput = context.ReadValueAsButton();
 
-    private void OnEnable() => inputActions.Enable();
+    private void OnEnable() => _inputActions.Enable();
 
-    private void OnDisable() => inputActions.Disable();
+    private void OnDisable() => _inputActions.Disable();
 
     public bool IsMovePressed => MoveInput.sqrMagnitude > 0;
     public bool IsDashPressed => !Mathf.Approximately(DashInput, 0f);

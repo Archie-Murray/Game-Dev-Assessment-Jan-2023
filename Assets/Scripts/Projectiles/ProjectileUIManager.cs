@@ -34,7 +34,7 @@ public class ProjectileUIManager : MonoBehaviour {
         #endregion
         InitStrategyButtons<LightUI>(ProjectileSpawnStrategyType.LIGHT);
         InitStrategyButtons<HeavyUI>(ProjectileSpawnStrategyType.HEAVY);
-        InitStrategyButtons<SpecialUI>(ProjectileSpawnStrategyType.SPECIAL);
+        InitStrategyButtons<MagicUI>(ProjectileSpawnStrategyType.MAGIC);
     }
 
     public void InitStrategyButtons<T>(ProjectileSpawnStrategyType type) where T : Component {
@@ -49,7 +49,6 @@ public class ProjectileUIManager : MonoBehaviour {
     public void TryUnlockStrategy(ProjectileSpawnStrategy strategy) {
         if (Globals.Instance.Money > strategy.Cost) {
             _projectileSpawnerManager.TryAddSpawner(strategy);
-            Globals.Instance.Money -= strategy.Cost;
         }
     }
 }

@@ -2,23 +2,16 @@ using UnityEngine;
 
 namespace Enemy {
     public class EnemyIdleState : EnemyState {
-        public EnemyIdleState(EnemyController controller, Animator animator) : base(controller, animator) {
-        }
-
-        public override void Exit() {
-            throw new System.NotImplementedException();
-        }
-
-        public override void FixedUpdate() {
-            throw new System.NotImplementedException();
-        }
+        public EnemyIdleState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) : base(controller, spriteRenderer, enemyManager) { }
 
         public override void Start() {
-            throw new System.NotImplementedException();
+            _spriteRenderer.material.color = Color.blue;
         }
 
-        public override void Update() {
-            throw new System.NotImplementedException();
+        public override void FixedUpdate() { }
+        public override void Update() { }
+        public override void Exit() { 
+            _spriteRenderer.material.color = Color.white; 
         }
     }
 }

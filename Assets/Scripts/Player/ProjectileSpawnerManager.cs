@@ -16,7 +16,7 @@ public class ProjectileSpawnerManager : MonoBehaviour {
 
         InitSockets<LightSocket>(ProjectileSpawnStrategyType.LIGHT);
         InitSockets<HeavySocket>(ProjectileSpawnStrategyType.HEAVY);
-        InitSockets<SpecialSocket>(ProjectileSpawnStrategyType.SPECIAL);
+        InitSockets<SpecialSocket>(ProjectileSpawnStrategyType.MAGIC);
     }
 
     // This is awful, Visual Scripting has no place here
@@ -57,6 +57,7 @@ public class ProjectileSpawnerManager : MonoBehaviour {
                 firePoint.transform.parent = socket;
                 firePoint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                 _projectileSpawners[spawnStrategy.Type].Add(new ProjectileSpawner(spawnStrategy, firePoint.transform));
+                Globals.Instance.AddMoney(-spawnStrategy.Cost);
                 return;
             }
         }

@@ -108,12 +108,12 @@ public static class Extensions {
 
     [Serializable]
     public struct DictKeyValue<TKey, TValue> {
-        public TKey key;
-        public TValue value;
+        public TKey Key;
+        public TValue Value;
 
         public DictKeyValue(TKey key, TValue value) {
-            this.key = key;
-            this.value = value;
+            Key = key;
+            Value = value;
         }
     }
 }

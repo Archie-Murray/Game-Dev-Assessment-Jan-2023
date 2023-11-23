@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[Serializable] public enum ProjectileSpawnStrategyType { LIGHT, HEAVY, SPECIAL }
+[Serializable] public enum ProjectileSpawnStrategyType { LIGHT, HEAVY, MAGIC }
 public abstract class ProjectileSpawnStrategy : ScriptableObject {
     public ProjectileSpawnStrategyType Type;
     public int Cost;

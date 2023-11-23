@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float _specialFireRate = 1.0f;
     [SerializeField] private CountDownTimer _fireTimer;
     [SerializeField] private CountDownTimer _heavyFireTimer;
-    [SerializeField] private CountDownTimer _specialFireTimer;
+    [SerializeField] private CountDownTimer _magicFireTimer;
 
     [Header("UI")]
     [SerializeField] private PlayerUI _playerUI;
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
         _projectileSpawnerManager = GetComponent<ProjectileSpawnerManager>();
         _fireTimer = new CountDownTimer(_fireRate);
         _heavyFireTimer = new CountDownTimer(_heavyFireRate);
-        _specialFireTimer = new CountDownTimer(_specialFireRate);
+        _magicFireTimer = new CountDownTimer(_specialFireRate);
         _playerUI = new PlayerUI(FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>());
         _playerUI.UpdateFireCooldowns(1f, 1f, 1f);
     }
@@ -67,9 +67,9 @@ public class PlayerController : MonoBehaviour {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.HEAVY);
             _heavyFireTimer.Start();
         }
-        if (_specialFireTimer.IsFinished && _inputHandler.SpecialFireInput) {
-            _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.SPECIAL);
-            _specialFireTimer.Start();
+        if (_magicFireTimer.IsFinished && _inputHandler.MagicFireInput) {
+            _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.MAGIC);
+            _magicFireTimer.Start();
         }
     }
 
@@ -78,8 +78,8 @@ public class PlayerController : MonoBehaviour {
         RotateToMouse();
         _fireTimer.Update(Time.fixedDeltaTime);
         _heavyFireTimer.Update(Time.fixedDeltaTime);
-        _specialFireTimer.Update(Time.fixedDeltaTime);
-        _playerUI.UpdateFireCooldowns(1f - _fireTimer.Progress, 1f - _heavyFireTimer.Progress, 1f - _specialFireTimer.Progress);
+        _magicFireTimer.Update(Time.fixedDeltaTime);
+        _playerUI.UpdateFireCooldowns(1f - _fireTimer.Progress, 1f - _heavyFireTimer.Progress, 1f - _magicFireTimer.Progress);
     }
 
     private void RotateToMouse() {
