@@ -39,8 +39,9 @@ public class PersistentSingleton<T> : Singleton<T> where T : Component {
             if (_instance == null) {
                 _instance = FindFirstObjectByType<T>();
                 if (_instance == null) {
-                    GameObject obj = new GameObject();
-                    obj.name = $"{typeof(T).Name} - AutoCreated";
+                    GameObject obj = new GameObject() {
+                        name = $"{typeof(T).Name} - AutoCreated"
+                    };
                     _instance = obj.AddComponent<T>();
                     DontDestroyOnLoad(obj);
                 }

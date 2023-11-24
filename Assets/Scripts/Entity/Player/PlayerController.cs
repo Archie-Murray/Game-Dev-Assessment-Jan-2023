@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void AddSpawnStrategy(ProjectileSpawnStrategy spawnStrategy) {
+        _playerUI.EnableTimer(spawnStrategy.Type);
         _projectileSpawnerManager.TryAddSpawner(spawnStrategy);
     }
 
@@ -98,14 +99,5 @@ public class PlayerController : MonoBehaviour {
             _velocity = Time.fixedDeltaTime * _speed * _velocity.normalized;
         }
         _rb2D.velocity = _velocity;
-    }
-    
-    IEnumerator Test()
-    {
-        while (true)
-        {
-            // Logic
-            yield return Yielders.WaitForSeconds(1f);
-        }
     }
 }

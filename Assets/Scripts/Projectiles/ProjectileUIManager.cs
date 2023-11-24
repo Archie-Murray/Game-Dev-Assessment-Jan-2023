@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class ProjectileUIManager : MonoBehaviour {
     [SerializeField] private List<ProjectileSpawnStrategy> _strategies;
-    [SerializeField] private ProjectileSpawnerManager _projectileSpawnerManager;
-    [SerializeField] private Dictionary<ProjectileSpawnStrategyType, Button[]> _buttons;
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject _buttonPrefab;
 
     private void Awake() {
-        _projectileSpawnerManager = FindFirstObjectByType<ProjectileSpawnerManager>();
+        _playerController = FindFirstObjectByType<PlayerController>();
         #region Old Implementation
         //_buttons = new Dictionary<ProjectileSpawnStrategyType, Button[]> {
         //    { ProjectileSpawnStrategyType.LIGHT, FindFirstObjectByType<LightUI>().GetComponentsInChildren<Button>() },
@@ -41,14 +40,14 @@ public class ProjectileUIManager : MonoBehaviour {
         Transform buttonLayout = FindFirstObjectByType<T>().transform;
         foreach (ProjectileSpawnStrategy strategy in _strategies.Where((ProjectileSpawnStrategy strategy) => strategy.Type == type)) {
             Button button = Instantiate(_buttonPrefab, buttonLayout).GetComponent<Button>();
-            button.onClick.AddListener(() => { TryUnlockStrategy(strategy); });
+            button.onClick.AddListener(() => TryUnlockStrategy(strategy));
             button.GetComponentInChildren<TMP_Text>().text = ProjectileSpawnStrategy.Display(strategy.GetType());
         }
     }
 
     public void TryUnlockStrategy(ProjectileSpawnStrategy strategy) {
         if (Globals.Instance.Money > strategy.Cost) {
-            _projectileSpawnerManager.TryAddSpawner(strategy);
+            _playerController.AddSpawnStrategy(strategy);
         }
     }
 }
