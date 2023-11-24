@@ -7,6 +7,7 @@ public abstract class ProjectileSpawnStrategy : ScriptableObject {
     public int Cost;
     public float Duration;
     public float Speed;
+    public float Damage;
 
     public abstract void Fire(Transform origin);
 

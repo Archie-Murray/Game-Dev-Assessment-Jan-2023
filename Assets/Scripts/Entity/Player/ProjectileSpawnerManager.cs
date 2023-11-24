@@ -16,21 +16,7 @@ public class ProjectileSpawnerManager : MonoBehaviour {
 
         InitSockets<LightSocket>(ProjectileSpawnStrategyType.LIGHT);
         InitSockets<HeavySocket>(ProjectileSpawnStrategyType.HEAVY);
-        InitSockets<SpecialSocket>(ProjectileSpawnStrategyType.MAGIC);
-    }
-
-    // This is awful, Visual Scripting has no place here
-    [Obsolete]
-    private void InitSockets(Type socketTagType, ProjectileSpawnStrategyType strategyType) {
-        Transform socketRoot = FindAnyObjectByType(socketTagType).GetComponent<Transform>();
-        if (socketRoot == null) {
-            Debug.LogWarning("Could not find socket of type: " + socketTagType);
-        }
-        List<Transform> sockets = new List<Transform>();
-        for (int i = 0; i < socketRoot.childCount; i++) {
-            sockets.Add(socketRoot.GetChild(i));
-        }
-        _sockets.Add(strategyType, sockets.ToArray());
+        InitSockets<MagicSocket>(ProjectileSpawnStrategyType.MAGIC);
     }
 
     private void InitSockets<T>(ProjectileSpawnStrategyType strategyType) where T : Component {

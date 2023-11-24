@@ -36,7 +36,7 @@ public static class Extensions {
     /// <typeparam name="T">Component Type</typeparam>
     /// <param name="gameObject">GameObject to check for component on</param>
     /// <returns>If the component is present</returns>
-    public static bool Has<T>(this GameObject gameObject) where T : Component { 
+    public static bool HasComponent<T>(this GameObject gameObject) where T : Component { 
         return gameObject.GetComponent<T>() != null; 
     }
 
@@ -95,7 +95,11 @@ public static class Extensions {
     ///<param name="colour">Colour to change SpriteRenderer material to</param>
     ///<param name="time">Time until colour changes back</param>
     ///<param name="monoBehaviour">MonoBehaviour to start coroutine on</param>
-    public static void FlashColour(this SpriteRenderer spriteRenderer, Color colour, float time, MonoBehaviour monoBehaviour) {        
+    public static void FlashColour(this SpriteRenderer spriteRenderer, Color colour, float time, MonoBehaviour monoBehaviour) {
+        if (monoBehaviour.OrNull() == null) {
+            Debug.Log("Provided MonoBehaviour was null!");
+            return;
+        }
         monoBehaviour.StartCoroutine(Flash(spriteRenderer, colour, time));
     }
 

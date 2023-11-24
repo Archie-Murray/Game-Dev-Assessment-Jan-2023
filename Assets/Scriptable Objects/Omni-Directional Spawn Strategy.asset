@@ -16,5 +16,6 @@ MonoBehaviour:
   Cost: 100
   Duration: 2
   Speed: 2
+  Damage: 3
   Count: 10
-  projectile: {fileID: 5682708590775422086, guid: 7d3ddc57a862de547b11ca07800ffe76, type: 3}
+  Projectile: {fileID: 5682708590775422086, guid: 7d3ddc57a862de547b11ca07800ffe76, type: 3}

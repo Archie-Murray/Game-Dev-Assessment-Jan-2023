@@ -16,5 +16,6 @@ MonoBehaviour:
   Cost: 10
   Duration: 10
   Speed: 10
-  projectile: {fileID: 6060860326740574827, guid: ad746c6ae84694f49bb65c75b7b2f050, type: 3}
+  Damage: 2
+  Projectile: {fileID: 6060860326740574827, guid: ad746c6ae84694f49bb65c75b7b2f050, type: 3}
   OffsetMagnitude: 2

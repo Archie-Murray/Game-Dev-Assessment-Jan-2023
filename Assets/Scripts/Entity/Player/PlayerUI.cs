@@ -8,9 +8,15 @@ public class PlayerUI {
 
     public PlayerUI(Image[] cooldownTimers) => _cooldownTimers = cooldownTimers;
 
-    public void UpdateFireCooldowns(float normalProgress, float heavyProgress, float specialProgress) {
+    public void EnableTimer(ProjectileSpawnStrategyType type) {
+        if (_cooldownTimers[(int)type].color.a == 0f) {
+            _cooldownTimers[(int)type].color = Color.white;
+        }
+    }
+
+    public void UpdateFireCooldowns(float normalProgress, float heavyProgress, float magicProgress) {
         _cooldownTimers[0].fillAmount = normalProgress;
         _cooldownTimers[1].fillAmount = heavyProgress;
-        _cooldownTimers[2].fillAmount = specialProgress;
+        _cooldownTimers[2].fillAmount = magicProgress;
     }
 }
