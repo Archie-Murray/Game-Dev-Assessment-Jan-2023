@@ -14,9 +14,9 @@ public class PlayerUI {
         }
     }
 
-    public void UpdateFireCooldowns(float normalProgress, float heavyProgress, float magicProgress) {
+    public void UpdateFireCooldowns(float normalProgress, float heavyProgress, float eliteProgress) {
         _cooldownTimers[0].fillAmount = normalProgress;
         _cooldownTimers[1].fillAmount = heavyProgress;
-        _cooldownTimers[2].fillAmount = magicProgress;
+        _cooldownTimers[2].fillAmount = eliteProgress;
     }
 }

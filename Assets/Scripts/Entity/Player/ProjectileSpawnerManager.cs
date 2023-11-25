@@ -16,7 +16,7 @@ public class ProjectileSpawnerManager : MonoBehaviour {
 
         InitSockets<LightSocket>(ProjectileSpawnStrategyType.LIGHT);
         InitSockets<HeavySocket>(ProjectileSpawnStrategyType.HEAVY);
-        InitSockets<MagicSocket>(ProjectileSpawnStrategyType.MAGIC);
+        InitSockets<EliteSocket>(ProjectileSpawnStrategyType.ELITE);
     }
 
     private void InitSockets<T>(ProjectileSpawnStrategyType strategyType) where T : Component {

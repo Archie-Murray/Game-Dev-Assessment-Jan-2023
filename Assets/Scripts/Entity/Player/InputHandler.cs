@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour {
     public float SprintInput;
     public bool FireInput;
     public bool HeavyFireInput;
-    public bool MagicFireInput;
+    public bool EliteFireInput;
 
     private Controls _inputActions;
 
@@ -42,7 +42,7 @@ public class InputHandler : MonoBehaviour {
     private void SprintHandle(InputAction.CallbackContext context) => SprintInput = context.ReadValue<float>();
     private void FireHandle(InputAction.CallbackContext context) => FireInput = context.ReadValueAsButton();
     private void HeavyFireHandle(InputAction.CallbackContext context) => HeavyFireInput = context.ReadValueAsButton();
-    private void MagicFireHandle(InputAction.CallbackContext context) => MagicFireInput = context.ReadValueAsButton();
+    private void MagicFireHandle(InputAction.CallbackContext context) => EliteFireInput = context.ReadValueAsButton();
 
     private void OnEnable() => _inputActions.Enable();
 
