@@ -9,11 +9,13 @@ public abstract class EnemyState : IEnemyState {
     protected readonly EnemyController _controller;
     protected readonly SpriteRenderer _spriteRenderer;
     protected readonly EnemyManager _enemyManager;
+    protected readonly EnemyStateFactory _enemyStateFactory;
 
     public EnemyState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) {
         _controller = controller;
         _spriteRenderer = spriteRenderer;
         _enemyManager = enemyManager;
+        _enemyStateFactory.Init(controller, spriteRenderer, enemyManager);
     }
 
     public EnemyState(EnemyState previousState) {
@@ -39,9 +41,9 @@ public abstract class EnemyState : IEnemyState {
 
     public class EnemyStateFactory {
 
-        private static Dictionary<Type, EnemyState> _states;
+        private Dictionary<Type, EnemyState> _states;
 
-        public static void Init(EnemyController controller, SpriteRenderer renderer, EnemyManager manager) {
+        public void Init(EnemyController controller, SpriteRenderer renderer, EnemyManager manager) {
             _states = new Dictionary<Type, EnemyState>() {
                 { typeof(EnemyIdleState), new EnemyIdleState(controller, renderer, manager) },
                 { typeof(EnemyPatrolState), new EnemyPatrolState(controller, renderer, manager) },
@@ -50,7 +52,7 @@ public abstract class EnemyState : IEnemyState {
             };
         }
 
-        public static T State<T>() where T : EnemyState {
+        public T State<T>() where T : EnemyState {
             if (!_states.ContainsKey(typeof(T))) {
                 Debug.Log($"Could not find state: {typeof(T)}");
                 return _states[typeof(EnemyIdleState)] as T;

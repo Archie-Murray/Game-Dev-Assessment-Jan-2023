@@ -35,13 +35,13 @@ namespace Enemy {
 
         public override void CheckTransitions() {
             if (!_enemyManager.Target) {
-                SwitchState(EnemyStateFactory.State<EnemyIdleState>());
+                SwitchState(_enemyStateFactory.State<EnemyIdleState>());
                 return;
             }
             if (!_controller.InAttackRange && _controller.InChaseRange) {
-                SwitchState(EnemyStateFactory.State<EnemyChaseState>());
+                SwitchState(_enemyStateFactory.State<EnemyChaseState>());
             } else if (!_controller.InChaseRange) {
-                SwitchState(EnemyStateFactory.State<EnemyPatrolState>());
+                SwitchState(_enemyStateFactory.State<EnemyPatrolState>());
             }
         }
 

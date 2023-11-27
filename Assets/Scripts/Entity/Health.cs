@@ -7,9 +7,9 @@ public class Health : MonoBehaviour {
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private float _deathTimer = 0.25f;
 
-    public UnityAction<float> OnDamage { get; }
-    public UnityAction<float> OnHeal { get; }
-    public UnityAction OnDeath { get; }
+    public event UnityAction<float> OnDamage;
+    public event UnityAction<float> OnHeal;
+    public event UnityAction OnDeath;
 
     public float PercentHealth => Mathf.Clamp01(_currentHealth / _maxHealth);
     public float CurrentHealth => _currentHealth;

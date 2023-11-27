@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class PlayerUI {
     [SerializeField] private Image[] _cooldownTimers;
 
-    public PlayerUI(Image[] cooldownTimers) => _cooldownTimers = cooldownTimers;
+    public PlayerUI(Image[] cooldownTimers) {
+        _cooldownTimers = cooldownTimers;
+    }
 
     public void EnableTimer(ProjectileSpawnStrategyType type) {
         if (_cooldownTimers[(int)type].color.a == 0f) {

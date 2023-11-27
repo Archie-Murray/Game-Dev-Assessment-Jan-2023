@@ -18,11 +18,11 @@ namespace Enemy {
         }
         public override void CheckTransitions() {
             if (!_controller.HasTarget) {
-                SwitchState(EnemyStateFactory.State<EnemyIdleState>());
+                SwitchState(_enemyStateFactory.State<EnemyIdleState>());
                 return;
             }
             if (_controller.InAttackRange) {
-                SwitchState(EnemyStateFactory.State<EnemyAttackState>());
+                SwitchState(_enemyStateFactory.State<EnemyAttackState>());
             }
         }
 

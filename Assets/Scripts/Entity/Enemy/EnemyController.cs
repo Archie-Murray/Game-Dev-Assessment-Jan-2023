@@ -17,8 +17,8 @@ namespace Enemy {
         [SerializeField] private float _maxSpeed = 200f;
         [SerializeField] private float _maxAcceleration = 60f;
         [SerializeField] private float _maxTurnSpeed = 5f;
-        [SerializeField] private float _chaseRange;
-        [SerializeField] private float _attackRange;
+        [SerializeField] private float _chaseRange = 10f;
+        [SerializeField] private float _attackRange = 5f;
         [SerializeField] private float _fireRate = 1f;
         [SerializeField] private float _damage = 1f;
 
@@ -42,12 +42,14 @@ namespace Enemy {
             _agent.updateRotation = false;
             _agent.stoppingDistance = _attackRange - 0.5f;
             _enemyManager = transform.parent.GetComponent<EnemyManager>();
-            EnemyState.EnemyStateFactory.Init(this, GetComponent<SpriteRenderer>(), _enemyManager);
             _attackTimer = new CountDownTimer(_fireRate);
         }
 
         public void Start() {
             _state = new EnemyPatrolState(this, GetComponent<SpriteRenderer>(), _enemyManager);
+            if (_state == null) {
+                Debug.Log("State was not initialised, help, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            }
             _state?.Start();
         }
 
@@ -58,9 +60,6 @@ namespace Enemy {
         }
 
         public void FixedUpdate() {
-            if (_state == null) {
-                Debug.Log("State was null");
-            }
             _state?.FixedUpdate();
             _attackTimer.Update(Time.fixedDeltaTime);
         }

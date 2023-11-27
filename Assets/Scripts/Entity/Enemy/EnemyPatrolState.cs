@@ -21,13 +21,13 @@ namespace Enemy {
         }
         public override void CheckTransitions() {
             if (!_controller.HasTarget) {
-                SwitchState(EnemyStateFactory.State<EnemyIdleState>());
+                SwitchState(_enemyStateFactory.State<EnemyIdleState>());
             }
             if (_controller.InAttackRange) {
-                SwitchState(EnemyStateFactory.State<EnemyAttackState>());
+                SwitchState(_enemyStateFactory.State<EnemyAttackState>());
                 return;
             } else if (_controller.InChaseRange) {
-                SwitchState(EnemyStateFactory.State<EnemyChaseState>());
+                SwitchState(_enemyStateFactory.State<EnemyChaseState>());
                 return;
             }
         }
