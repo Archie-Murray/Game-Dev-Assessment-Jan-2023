@@ -104,10 +104,10 @@ public static class Extensions {
     }
 
     private static IEnumerator Flash(SpriteRenderer spriteRenderer, Color colour, float time) { 
-        Color original = spriteRenderer.material.color;
-        spriteRenderer.material.color = colour;
+        Color original = spriteRenderer.color;
+        spriteRenderer.color = colour;
         yield return Yielders.WaitForSeconds(time);
-        spriteRenderer.material.color = original;
+        spriteRenderer.color = original;
     }
 
     [Serializable]

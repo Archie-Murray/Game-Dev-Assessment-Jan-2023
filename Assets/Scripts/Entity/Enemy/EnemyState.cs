@@ -11,20 +11,12 @@ public abstract class EnemyState : IEnemyState {
     protected readonly EnemyManager _enemyManager;
     protected readonly EnemyStateFactory _enemyStateFactory;
 
-    public EnemyState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) {
+    public EnemyState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager, EnemyStateFactory enemyStateFactory) {
         _controller = controller;
         _spriteRenderer = spriteRenderer;
         _enemyManager = enemyManager;
-        _enemyStateFactory.Init(controller, spriteRenderer, enemyManager);
+        _enemyStateFactory = enemyStateFactory;
     }
-
-    public EnemyState(EnemyState previousState) {
-        _controller = previousState._controller;
-        _spriteRenderer = previousState._spriteRenderer;
-        _enemyManager = previousState._enemyManager;
-    }
-
-    public EnemyState() { }
 
     public abstract void Start();
     public abstract void FixedUpdate();
@@ -33,7 +25,6 @@ public abstract class EnemyState : IEnemyState {
     public abstract void Exit();
 
     public void SwitchState(EnemyState state) {
-        Debug.Log($"Switching from State: {_controller.State.GetType()} to {state.GetType()}");
         _controller.State?.Exit();
         _controller.State = state;
         _controller.State.Start();
@@ -43,13 +34,19 @@ public abstract class EnemyState : IEnemyState {
 
         private Dictionary<Type, EnemyState> _states;
 
-        public void Init(EnemyController controller, SpriteRenderer renderer, EnemyManager manager) {
+        public EnemyStateFactory(EnemyController controller, SpriteRenderer renderer, EnemyManager manager) {
             _states = new Dictionary<Type, EnemyState>() {
-                { typeof(EnemyIdleState), new EnemyIdleState(controller, renderer, manager) },
-                { typeof(EnemyPatrolState), new EnemyPatrolState(controller, renderer, manager) },
-                { typeof(EnemyChaseState), new EnemyChaseState(controller, renderer, manager) },
-                { typeof(EnemyAttackState), new EnemyAttackState(controller, renderer, manager) },
+                { typeof(EnemyIdleState), new EnemyIdleState(controller, renderer, manager, this) },
+                { typeof(EnemyPatrolState), new EnemyPatrolState(controller, renderer, manager, this) },
+                { typeof(EnemyChaseState), new EnemyChaseState(controller, renderer, manager, this) },
+                { typeof(EnemyAttackState), new EnemyAttackState(controller, renderer, manager, this) },
             };
+        }
+
+        public void ValidateStates() {
+            foreach (EnemyState state in _states.Values) {
+                Debug.Log($"{state.GetType()} is valid: {(state._enemyStateFactory == null ? "no" : "yes")}");
+            }
         }
 
         public T State<T>() where T : EnemyState {

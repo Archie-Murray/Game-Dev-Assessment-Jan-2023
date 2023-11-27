@@ -7,9 +7,7 @@ using Utilities;
 namespace Enemy {
     public class EnemyAttackState : EnemyState {
 
-        public EnemyAttackState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) : base(controller, spriteRenderer, enemyManager) { }
-        public EnemyAttackState(EnemyState previousState) : base(previousState) { }
-        public EnemyAttackState() : base() { }
+        public EnemyAttackState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager, EnemyState.EnemyStateFactory enemyStateFactory) : base(controller, spriteRenderer, enemyManager, enemyStateFactory) { }
 
         public override void Start() {
             _spriteRenderer.color = Color.red;
@@ -47,7 +45,7 @@ namespace Enemy {
 
         public override void Update() { }
         public override void Exit() {
-            _spriteRenderer.material.color = Color.white;
+            _spriteRenderer.color = Color.white;
         }
     }
 }

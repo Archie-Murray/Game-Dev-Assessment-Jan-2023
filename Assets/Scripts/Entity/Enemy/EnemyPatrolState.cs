@@ -3,14 +3,13 @@ using UnityEngine;
 namespace Enemy {
     public class EnemyPatrolState : EnemyState {
         private int _wanderPointIndex;
-        public EnemyPatrolState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) : base(controller, spriteRenderer, enemyManager) { }
-        public EnemyPatrolState(EnemyState previousState) : base(previousState) { }
-        public EnemyPatrolState() : base() { }
+        public EnemyPatrolState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager, EnemyState.EnemyStateFactory enemyStateFactory) : base(controller, spriteRenderer, enemyManager, enemyStateFactory) { }
 
         public override void Start() {
-            _spriteRenderer.material.color = Color.blue;
+            _spriteRenderer.color = Color.blue;
             _wanderPointIndex = Random.Range(0, _enemyManager.WanderPoints.Length);
             _controller.Agent.destination = _enemyManager.WanderPoints[_wanderPointIndex].position;
+            Debug.Log($"Factory is null: {_enemyStateFactory == null}");
         }
 
         public override void FixedUpdate() {
@@ -33,7 +32,7 @@ namespace Enemy {
         }
         public override void Update() { }
         public override void Exit() { 
-            _spriteRenderer.material.color = Color.white; 
+            _spriteRenderer.color = Color.white; 
         }
 
     }

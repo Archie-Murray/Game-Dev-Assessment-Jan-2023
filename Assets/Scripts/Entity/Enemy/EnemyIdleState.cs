@@ -2,12 +2,10 @@ using UnityEngine;
 
 namespace Enemy {
     public class EnemyIdleState : EnemyState {
-        public EnemyIdleState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) : base(controller, spriteRenderer, enemyManager) { }
-        public EnemyIdleState(EnemyState previousState) : base(previousState) { }
-        public EnemyIdleState() : base() { }
+        public EnemyIdleState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager, EnemyState.EnemyStateFactory enemyStateFactory) : base(controller, spriteRenderer, enemyManager, enemyStateFactory) { }
 
         public override void Start() { 
-            _spriteRenderer.material.color = Color.gray; 
+            _spriteRenderer.color = Color.gray; 
         }
 
         public override void FixedUpdate() { }

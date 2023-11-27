@@ -2,13 +2,11 @@ using UnityEngine;
 
 namespace Enemy {
     public class EnemyChaseState : EnemyState {
-        public EnemyChaseState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager) : base(controller, spriteRenderer, enemyManager) { }
-        public EnemyChaseState(EnemyState previousState) : base(previousState) { }
-        public EnemyChaseState() : base() { }
+        public EnemyChaseState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager, EnemyState.EnemyStateFactory enemyStateFactory) : base(controller, spriteRenderer, enemyManager, enemyStateFactory) { }
 
 
         public override void Start() {
-            _spriteRenderer.material.color = Color.yellow;
+            _spriteRenderer.color = Color.yellow;
             _controller.Agent.destination = _enemyManager.Target.position;
         }
         public override void FixedUpdate() {
@@ -28,7 +26,7 @@ namespace Enemy {
 
         public override void Update() { }
         public override void Exit() {
-            _spriteRenderer.material.color = Color.white;
+            _spriteRenderer.color = Color.white;
         }
 
     }

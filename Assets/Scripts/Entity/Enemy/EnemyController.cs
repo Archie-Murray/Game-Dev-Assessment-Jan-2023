@@ -25,6 +25,7 @@ namespace Enemy {
         [Header("Gameplay Variables")]
         [SerializeField] private CountDownTimer _attackTimer;
         private EnemyState _state;
+        private EnemyState.EnemyStateFactory _stateFactory;
 
         public EnemyState State { get { return _state; } set { _state = value; } }
         public NavMeshAgent Agent { get { return _agent; } }
@@ -46,7 +47,8 @@ namespace Enemy {
         }
 
         public void Start() {
-            _state = new EnemyPatrolState(this, GetComponent<SpriteRenderer>(), _enemyManager);
+            _stateFactory = new EnemyState.EnemyStateFactory(this, GetComponent<SpriteRenderer>(), _enemyManager);
+            _state = _stateFactory.State<EnemyPatrolState>();
             if (_state == null) {
                 Debug.Log("State was not initialised, help, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             }
