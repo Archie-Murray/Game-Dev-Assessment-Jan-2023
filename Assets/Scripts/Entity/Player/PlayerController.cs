@@ -5,12 +5,13 @@ using Utilities;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(InputHandler))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : Entity {
 
     [Header("Component References")]
     [SerializeField] private Rigidbody2D _rb2D;
     [SerializeField] private InputHandler _inputHandler;  
     [SerializeField] private ProjectileSpawnerManager _projectileSpawnerManager;
+    [SerializeField] private Health _health;
     
     [Header("Player Variables")]
     [SerializeField] private float _maxSpeed = 200f;
@@ -40,10 +41,11 @@ public class PlayerController : MonoBehaviour {
         _rb2D = GetComponent<Rigidbody2D>();
         _inputHandler = GetComponent<InputHandler>();
         _projectileSpawnerManager = GetComponent<ProjectileSpawnerManager>();
+        _health = GetComponent<Health>();
         _fireTimer = new CountDownTimer(_fireRate);
         _heavyFireTimer = new CountDownTimer(_heavyFireRate);
         _eliteFireTimer = new CountDownTimer(_specialFireRate);
-        _playerUI = new PlayerUI(FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>());
+        _playerUI = new PlayerUI(FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>(), FindFirstObjectByType<PlayerHealthBar>().GetComponent<Image>());
         _playerUI.UpdateFireCooldowns(1f, 1f, 1f);
     }
 
@@ -78,6 +80,7 @@ public class PlayerController : MonoBehaviour {
         _heavyFireTimer.Update(Time.fixedDeltaTime);
         _eliteFireTimer.Update(Time.fixedDeltaTime);
         _playerUI.UpdateFireCooldowns(1f - _fireTimer.Progress, 1f - _heavyFireTimer.Progress, 1f - _eliteFireTimer.Progress);
+        _playerUI.UpdateHealthBar(_health.PercentHealth);
     }
 
     private void RotateToMouse() {

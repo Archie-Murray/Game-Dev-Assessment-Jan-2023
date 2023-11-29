@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
+
+using Utilities;
+using Spawning;
 
 namespace Enemy {
 
@@ -11,6 +11,8 @@ namespace Enemy {
         [SerializeField] private Transform[] _wanderPoints;
         [SerializeField] private Transform _target;
         [SerializeField] private GameObject _enemyProjectile;
+        [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private CountDownTimer _spawnTimer = new CountDownTimer(5f);
 
         public Transform[] WanderPoints { get { return _wanderPoints; } }
         public Transform Target { get { return _target; } }
@@ -21,11 +23,17 @@ namespace Enemy {
             _wanderPoints = Array.ConvertAll(FindObjectsOfType<WanderPoint>(), (WanderPoint point) => point.transform);
         }
 
-        private void Start() {
-            Globals.Instance.UpdatePlayerMoney();
-            foreach (Health enemyHealth in Array.ConvertAll(GetComponentsInChildren<EnemyController>(), (EnemyController controller) => controller.GetComponent<Health>()).ToArray()) {
-                enemyHealth.OnDeath += EnemyKillReward;
+        private void FixedUpdate() {
+            _spawnTimer.Update(Time.fixedDeltaTime);
+            if (_spawnTimer.IsFinished) {
+                Spawn();
+                _spawnTimer.Reset();
             }
+        }
+
+        public void Spawn() {
+            Globals.Instance.UpdatePlayerMoney();
+            _enemySpawner.Spawn().GetComponent<Health>().OnDeath += EnemyKillReward;
         }
 
         private void EnemyKillReward() {

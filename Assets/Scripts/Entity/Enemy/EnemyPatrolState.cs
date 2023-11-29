@@ -6,7 +6,7 @@ namespace Enemy {
         public EnemyPatrolState(EnemyController controller, SpriteRenderer spriteRenderer, EnemyManager enemyManager, EnemyState.EnemyStateFactory enemyStateFactory) : base(controller, spriteRenderer, enemyManager, enemyStateFactory) { }
 
         public override void Start() {
-            _spriteRenderer.color = Color.blue;
+            _spriteRenderer.color = Color.cyan;
             _wanderPointIndex = Random.Range(0, _enemyManager.WanderPoints.Length);
             _controller.Agent.destination = _enemyManager.WanderPoints[_wanderPointIndex].position;
             Debug.Log($"Factory is null: {_enemyStateFactory == null}");

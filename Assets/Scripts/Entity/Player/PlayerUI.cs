@@ -5,9 +5,11 @@ using UnityEngine.UI;
 [Serializable]
 public class PlayerUI {
     [SerializeField] private Image[] _cooldownTimers;
+    [SerializeField] private Image _healthBar;
 
-    public PlayerUI(Image[] cooldownTimers) {
+    public PlayerUI(Image[] cooldownTimers, Image healthBar) {
         _cooldownTimers = cooldownTimers;
+        _healthBar = healthBar;
     }
 
     public void EnableTimer(ProjectileSpawnStrategyType type) {
@@ -20,5 +22,9 @@ public class PlayerUI {
         _cooldownTimers[0].fillAmount = normalProgress;
         _cooldownTimers[1].fillAmount = heavyProgress;
         _cooldownTimers[2].fillAmount = eliteProgress;
+    }
+
+    public void UpdateHealthBar(float amount) {
+        _healthBar.fillAmount = amount;
     }
 }
