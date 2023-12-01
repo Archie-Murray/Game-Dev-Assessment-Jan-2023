@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using Utilities;
 
 namespace Enemy {
-    public class EnemyController : Entity {
+    public class EnemyController : MonoBehaviour {
 
         [Header("Component References")]
         [SerializeField] private NavMeshAgent _agent;

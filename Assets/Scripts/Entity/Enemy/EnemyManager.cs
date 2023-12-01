@@ -13,6 +13,7 @@ namespace Enemy {
         [SerializeField] private GameObject _enemyProjectile;
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private CountDownTimer _spawnTimer = new CountDownTimer(5f);
+        [SerializeField] private GameObject _enemyPrefab;
 
         public Transform[] WanderPoints { get { return _wanderPoints; } }
         public Transform Target { get { return _target; } }
@@ -21,6 +22,7 @@ namespace Enemy {
         private void Awake() {
             _target = FindFirstObjectByType<PlayerController>().transform;
             _wanderPoints = Array.ConvertAll(FindObjectsOfType<WanderPoint>(), (WanderPoint point) => point.transform);
+            _enemySpawner = new EnemySpawner(new RandomSpawnStrategy(_wanderPoints), _enemyPrefab);
         }
 
         private void FixedUpdate() {
@@ -33,7 +35,7 @@ namespace Enemy {
 
         public void Spawn() {
             Globals.Instance.UpdatePlayerMoney();
-            _enemySpawner.Spawn().GetComponent<Health>().OnDeath += EnemyKillReward;
+            _enemySpawner.Spawn(transform).GetComponent<Health>().OnDeath += EnemyKillReward;
         }
 
         private void EnemyKillReward() {

@@ -5,7 +5,7 @@ using Utilities;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(InputHandler))]
-public class PlayerController : Entity {
+public class PlayerController : MonoBehaviour {
 
     [Header("Component References")]
     [SerializeField] private Rigidbody2D _rb2D;
