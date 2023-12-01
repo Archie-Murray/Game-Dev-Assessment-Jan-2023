@@ -9,7 +9,6 @@ namespace Enemy {
             _spriteRenderer.color = Color.cyan;
             _wanderPointIndex = Random.Range(0, _enemyManager.WanderPoints.Length);
             _controller.Agent.destination = _enemyManager.WanderPoints[_wanderPointIndex].position;
-            Debug.Log($"Factory is null: {_enemyStateFactory == null}");
         }
 
         public override void FixedUpdate() {
