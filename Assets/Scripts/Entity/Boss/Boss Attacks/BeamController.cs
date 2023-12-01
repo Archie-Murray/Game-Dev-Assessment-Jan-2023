@@ -10,15 +10,17 @@ namespace BossAttack {
         [SerializeField] private float _damage;
         [SerializeField] private CountDownTimer _damageTimer;
         [SerializeField] private float _turnSpeed;
-        [SerializeField] private float _totalDegrees;
-        [SerializeField] private float _currentDegrees;
+        [SerializeField] private float _totalDegrees = 0;
+        [SerializeField] private float _currentDegrees = -1;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private float _offsetMagnitude;
+        [SerializeField] private Vector2 _size;
 
         private void Start() {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _offsetMagnitude = _spriteRenderer.bounds.extents.x * Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.z) + _spriteRenderer.bounds.extents.y * Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.z);
-            Init(10f, 0.5f, 60f, 360f);
+            _size = new Vector2(_spriteRenderer.sprite.bounds.size.x * transform.localScale.x, _spriteRenderer.sprite.bounds.size.y * transform.localScale.y);
+            _offsetMagnitude = _size.magnitude / 2f;
+            Init(1f, 0.5f, 60f, 180f);
         }
 
         private void FixedUpdate() {
@@ -51,7 +53,7 @@ namespace BossAttack {
         public void Damage() {
             Physics2D.OverlapBoxAll(
                 transform.position + transform.up * _offsetMagnitude,
-                _spriteRenderer.bounds.extents * 2f, 
+                _size, 
                 transform.rotation.eulerAngles.z, 
                 Globals.Instance.PlayerLayer
             ).FirstOrDefault().OrNull()?.GetComponent<Health>().OrNull()?.Damage(_damage);
