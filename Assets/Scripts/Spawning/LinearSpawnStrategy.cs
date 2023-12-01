@@ -11,7 +11,7 @@ namespace Spawning {
         public Transform GetPosition() {
             int prevIndex = _currentIndex;
             _currentIndex = ++_currentIndex % _offsets.Length;
-            return _offsets[_currentIndex];
+            return _offsets[prevIndex];
         }
 
     }

@@ -14,12 +14,12 @@ namespace Spawning {
 
         public GameObject Spawn(Transform parent = null) {
             Transform spawnPoint = _spawnStrategy.GetPosition();
-            GameObject instance = null;
+            GameObject instance;
             if (parent) {
-                instance = GameObject.Instantiate(_enemyPrefab, parent);
+                instance = UnityEngine.Object.Instantiate(_enemyPrefab, parent);
                 instance.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
             } else {
-                instance = GameObject.Instantiate(_enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                instance = UnityEngine.Object.Instantiate(_enemyPrefab, spawnPoint.position, spawnPoint.rotation);
             }
             return instance;
         }
