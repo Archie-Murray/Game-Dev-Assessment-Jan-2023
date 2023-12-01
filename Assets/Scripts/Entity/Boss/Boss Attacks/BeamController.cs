@@ -50,7 +50,10 @@ namespace BossAttack {
 
         public void Damage() {
             Physics2D.OverlapBoxAll(
-                transform.position + transform.up * _offsetMagnitude, _spriteRenderer.bounds.extents * 2f, transform.rotation.eulerAngles.z, Globals.Instance.PlayerLayer
+                transform.position + transform.up * _offsetMagnitude,
+                _spriteRenderer.bounds.extents * 2f, 
+                transform.rotation.eulerAngles.z, 
+                Globals.Instance.PlayerLayer
             ).FirstOrDefault().OrNull()?.GetComponent<Health>().OrNull()?.Damage(_damage);
             _damageTimer.Reset();
             _damageTimer.Start();
