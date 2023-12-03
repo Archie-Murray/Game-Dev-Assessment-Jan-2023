@@ -80,7 +80,7 @@ public class WeaponAugmentUIManager : MonoBehaviour {
     }
 
     public void TryUnlockStrategy(ProjectileSpawnStrategy strategy) {
-        if (Globals.Instance.Money > strategy.Cost) {
+        if (Globals.Instance.Money >= strategy.Cost) {
             _playerController.AddSpawnStrategy(strategy);
         }
     }
