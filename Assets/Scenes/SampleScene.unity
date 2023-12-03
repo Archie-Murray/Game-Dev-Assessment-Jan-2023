@@ -730,10 +730,10 @@ MonoBehaviour:
   MainCamera: {fileID: 519420031}
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   EnemyLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
 --- !u!4 &312263571
 Transform:
   m_ObjectHideFlags: 0
