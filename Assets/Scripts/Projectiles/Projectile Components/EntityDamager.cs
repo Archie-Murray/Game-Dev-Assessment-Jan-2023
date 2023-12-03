@@ -25,10 +25,11 @@ namespace ProjectileComponents {
                 Destroy(collision.gameObject); //Don't need to destroy self as collided bullet will do it
             } else {
                 Health entityHealth = _filter switch {
-                DamageFilter.Player => collision.gameObject.HasComponent<PlayerController>() ? collision.GetComponent<Health>() : null,
-                DamageFilter.Enemy => collision.gameObject.HasComponent<EnemyController>() ? collision.GetComponent<Health>() : null,
+                    DamageFilter.Player => collision.gameObject.HasComponent<PlayerController>() ? collision.GetComponent<Health>() : null,
+                    DamageFilter.Enemy => (1 << collision.gameObject.layer & Globals.Instance.EnemyLayer.value) > 0 ? collision.GetComponent<Health>() : null,
                     _ => null
                 };
+                
                 if (entityHealth) {
                     entityHealth.Damage(_damage);
                     Destroy(gameObject);

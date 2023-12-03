@@ -21,10 +21,7 @@ public class WeaponAugmentUIManager : MonoBehaviour {
     private Vector3 OpenPos => _weaponAugmentAnchor.transform.position;
     private Vector3 ClosedPos { 
         get {
-            return Globals.Instance.MainCamera.ScreenToWorldPoint(
-                Globals.Instance.MainCamera.WorldToScreenPoint(_weaponAugmentAnchor.transform.position) + 
-                Vector3.up * _weaponAugmentUIRoot.rect.height        
-            );
+            return _weaponAugmentAnchor.transform.position.Add(y: _weaponAugmentUIRoot.rect.height);
         } 
     }
 
@@ -56,6 +53,11 @@ public class WeaponAugmentUIManager : MonoBehaviour {
         InitStrategyButtons<EliteUI>(ProjectileSpawnStrategyType.ELITE);
         _weaponAugmentAnchor = FindFirstObjectByType<WeaponAugmentAnchor>().gameObject;
         _targetAugmentUIPos = _isOpen ? OpenPos : ClosedPos;
+    }
+
+    private void Start() {
+        Globals.Instance.EnemyLayer = 1 << LayerMask.NameToLayer("Enemy");
+        Globals.Instance.PlayerLayer = 1 << LayerMask.NameToLayer("Player");
     }
 
     private void Update() {

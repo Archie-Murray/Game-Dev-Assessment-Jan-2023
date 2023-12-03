@@ -31,8 +31,8 @@ namespace Enemy {
         public NavMeshAgent Agent { get { return _agent; } }
         public CountDownTimer AttackTimer { get { return _attackTimer; } }
         public float Damage => _damage;
-        public bool InChaseRange => Vector3.Distance(_enemyManager.Target.position, transform.position) <= _chaseRange;
-        public bool InAttackRange => Vector3.Distance(_enemyManager.Target.position, transform.position) <= _attackRange;
+        public bool InChaseRange => HasTarget && Vector3.Distance(_enemyManager.Target.OrNull()?.position ?? new Vector3(Mathf.Infinity, Mathf.Infinity), transform.position) <= _chaseRange;
+        public bool InAttackRange => HasTarget && Vector3.Distance(_enemyManager.Target.OrNull()?.position ?? new Vector3(Mathf.Infinity, Mathf.Infinity), transform.position) <= _attackRange;
         public bool HasTarget => _enemyManager.Target != null;
 
         public void Awake() {

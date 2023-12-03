@@ -83,7 +83,7 @@ public static class Extensions {
     ///<param name="y">Increase in y value if specified</param>
     ///<param name="z">Increase in z value if specified</param>
     ///<returns>Modified vector</returns>
-    public static Vector3 Add(this Vector3 vector, float? x, float? y, float? z) {
+    public static Vector3 Add(this Vector3 vector, float? x = 0, float? y = 0, float? z = 0) {
         return new Vector3(vector.x + (x ?? 0f), vector.y + (y ?? 0f), vector.z + (z ?? 0f));
     }
     
