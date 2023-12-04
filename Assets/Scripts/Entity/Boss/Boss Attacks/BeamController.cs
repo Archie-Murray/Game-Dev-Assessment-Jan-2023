@@ -56,7 +56,10 @@ namespace Boss {
                 _size, 
                 transform.rotation.eulerAngles.z, 
                 Globals.Instance.PlayerLayer
-            ).FirstOrDefault().OrNull()?.GetComponent<Health>().OrNull()?.Damage(_damage);
+            ).Where((Collider2D collider2D) => collider2D.gameObject.HasComponent<PlayerController>())
+             .FirstOrDefault().OrNull()?
+             .GetComponent<Health>().OrNull()?
+             .Damage(_damage);
             _damageTimer.Reset();
             _damageTimer.Start();
         }
