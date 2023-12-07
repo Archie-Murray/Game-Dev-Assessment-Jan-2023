@@ -103,11 +103,26 @@ public static class Extensions {
         monoBehaviour.StartCoroutine(Flash(spriteRenderer, colour, time));
     }
 
+    public static void FlashColour(this SpriteRenderer spriteRenderer, Color flashColour, Color originalColour, float time, MonoBehaviour monoBehaviour) {
+        if (monoBehaviour.OrNull() == null) {
+            Debug.Log("Provided MonoBehaviour was null!");
+            return;
+        }
+        monoBehaviour.StartCoroutine(Flash(spriteRenderer, flashColour, originalColour, time));
+    }
+
+
     private static IEnumerator Flash(SpriteRenderer spriteRenderer, Color colour, float time) { 
         Color original = spriteRenderer.color;
         spriteRenderer.color = colour;
         yield return Yielders.WaitForSeconds(time);
         spriteRenderer.color = original;
+    }
+
+    private static IEnumerator Flash(SpriteRenderer spriteRenderer, Color colour, Color originalColour, float time) { 
+        spriteRenderer.color = colour;
+        yield return Yielders.WaitForSeconds(time);
+        spriteRenderer.color = originalColour;
     }
 
     [Serializable]

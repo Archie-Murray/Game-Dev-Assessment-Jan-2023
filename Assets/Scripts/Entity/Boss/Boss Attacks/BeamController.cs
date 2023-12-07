@@ -20,7 +20,6 @@ namespace Boss {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _size = new Vector2(_spriteRenderer.sprite.bounds.size.x * transform.localScale.x, _spriteRenderer.sprite.bounds.size.y * transform.localScale.y);
             _offsetMagnitude = _size.magnitude / 2f;
-            Init(1f, 0.5f, -360f, 360f, 1f);
         }
 
         private void FixedUpdate() {
@@ -43,10 +42,12 @@ namespace Boss {
         /// <param name="duration"></param>
         public void Init(float damage, float damageCooldown, float turnDirection, float totalDegrees, float duration) {
             _damage = damage;
+            _durationTimer = new CountDownTimer(duration);
             _damageTimer = new CountDownTimer(damageCooldown);
             _totalDegrees = totalDegrees;
             _turnSpeed = Mathf.Max(0.1f, totalDegrees / duration) * Mathf.Sign(turnDirection);
             _damageTimer.Start();
+            _durationTimer.Start();
             _damageTimer.OnTimerStop += Damage;
         }
 
