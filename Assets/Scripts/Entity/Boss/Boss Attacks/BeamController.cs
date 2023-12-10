@@ -11,7 +11,6 @@ namespace Boss {
         [SerializeField] private CountDownTimer _damageTimer;
         [SerializeField] private CountDownTimer _durationTimer;
         [SerializeField] private float _turnSpeed;
-        [SerializeField] private float _totalDegrees = 0;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private float _offsetMagnitude;
         [SerializeField] private Vector2 _size;
@@ -33,25 +32,24 @@ namespace Boss {
         }
 
         /// <summary>
-        /// 
+        /// Initialises beam with params, used like a constructor as this is a MonoBehaviour
         /// </summary>
-        /// <param name="damage"></param>
-        /// <param name="damageCooldown"></param>
-        /// <param name="turnDirection"></param>
-        /// <param name="totalDegrees"></param>
-        /// <param name="duration"></param>
-        public void Init(float damage, float damageCooldown, float turnDirection, float totalDegrees, float duration) {
+        /// <param name="damage">Damage to do per collision check</param>
+        /// <param name="damageCooldown">Interval between collision checks</param>
+        /// <param name="turnSpeed">Speed to turn at, negative values will make it turn the other way</param>
+        /// <param name="totalDegrees">Total unsigned degrees to turn</param>
+        /// <param name="duration">Duration of beam</param>
+        public void Init(float damage, float damageCooldown, float turnSpeed, float totalDegrees, float duration) {
             _damage = damage;
             _durationTimer = new CountDownTimer(duration);
             _damageTimer = new CountDownTimer(damageCooldown);
-            _totalDegrees = totalDegrees;
-            _turnSpeed = Mathf.Max(0.1f, totalDegrees / duration) * Mathf.Sign(turnDirection);
+            _turnSpeed = Mathf.Max(0.1f, totalDegrees / duration) * Mathf.Sign(turnSpeed);
             _damageTimer.Start();
             _durationTimer.Start();
             _damageTimer.OnTimerStop += Damage;
         }
 
-        public void Damage() {
+        private void Damage() {
             Physics2D.OverlapBoxAll(
                 transform.position + transform.up * _offsetMagnitude,
                 _size, 

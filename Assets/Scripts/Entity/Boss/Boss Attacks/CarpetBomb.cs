@@ -14,7 +14,8 @@ namespace Boss {
         public GameObject MissilePrefab;
         public float MaxDistance = 2f;
         public override void Attack(Transform origin) {
-            Transform playerTransform = FindFirstObjectByType<PlayerController>().transform;
+            Transform playerTransform = FindFirstObjectByType<PlayerController>().OrNull()?.transform ?? null;
+            if (playerTransform == null) { return; }
             for (int i = 0; i < Points; i++) {
                 Vector3 targetPos = playerTransform.position + (Vector3) (Random.insideUnitCircle * MaxDistance);
                 GameObject projectile = Instantiate(MissilePrefab, origin.position, origin.rotation);
