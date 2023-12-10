@@ -12,62 +12,17 @@ public class WeaponAugmentUIManager : MonoBehaviour {
     [SerializeField] private List<ProjectileSpawnStrategy> _strategies;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject _buttonPrefab;
-    [SerializeField] private bool _isOpen = true;
-    [SerializeField] private bool _augmentUIEnabled = true;
-    [SerializeField] private RectTransform _weaponAugmentUIRoot;
-    [SerializeField] private Vector3 _targetAugmentUIPos;
-    [SerializeField] private GameObject _weaponAugmentAnchor;
-
-    private Vector3 OpenPos => _weaponAugmentAnchor.transform.position;
-    private Vector3 ClosedPos { 
-        get {
-            return _weaponAugmentAnchor.transform.position.Add(y: _weaponAugmentUIRoot.rect.height);
-        } 
-    }
-
-    private void MoveUI(float speed = 5f) {
-        if (_weaponAugmentUIRoot.position != _targetAugmentUIPos && _augmentUIEnabled) {
-            for (int i = 0; i < _weaponAugmentUIRoot.childCount; i++) {
-                foreach (Button button in _weaponAugmentUIRoot.GetChild(i).gameObject.GetComponentsInChildren<Button>()) {
-                    button.interactable = false;
-                }
-            }
-            _augmentUIEnabled = false;
-        } else if (!_augmentUIEnabled) {
-            for (int i = 0; i < _weaponAugmentUIRoot.childCount; i++) {
-                foreach (Button button in _weaponAugmentUIRoot.GetChild(i).gameObject.GetComponentsInChildren<Button>()) {
-                    button.interactable = true;
-                }
-            }
-        }
-        if (_weaponAugmentUIRoot.position != _targetAugmentUIPos) {
-            _weaponAugmentUIRoot.position = Vector3.MoveTowards(_weaponAugmentUIRoot.position, _targetAugmentUIPos, Time.fixedDeltaTime * speed);
-        }
-    }
 
     private void Awake() {
         _playerController = FindFirstObjectByType<PlayerController>();
-        _weaponAugmentUIRoot = FindFirstObjectByType<WeaponAugment>().GetComponent<RectTransform>();
         InitStrategyButtons<LightUI>(ProjectileSpawnStrategyType.LIGHT);
         InitStrategyButtons<HeavyUI>(ProjectileSpawnStrategyType.HEAVY);
         InitStrategyButtons<EliteUI>(ProjectileSpawnStrategyType.ELITE);
-        _weaponAugmentAnchor = FindFirstObjectByType<WeaponAugmentAnchor>().gameObject;
-        _targetAugmentUIPos = _isOpen ? OpenPos : ClosedPos;
     }
 
     private void Start() {
         Globals.Instance.EnemyLayer = 1 << LayerMask.NameToLayer("Enemy");
         Globals.Instance.PlayerLayer = 1 << LayerMask.NameToLayer("Player");
-    }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            _targetAugmentUIPos = _targetAugmentUIPos == OpenPos ? ClosedPos : OpenPos;
-        }
-    }
-
-    private void FixedUpdate() {
-        MoveUI();
     }
 
     public void InitStrategyButtons<T>(ProjectileSpawnStrategyType type) where T : Component {

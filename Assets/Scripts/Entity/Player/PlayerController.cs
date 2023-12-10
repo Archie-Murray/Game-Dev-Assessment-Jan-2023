@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private InputHandler _inputHandler;  
     [SerializeField] private ProjectileSpawnerManager _projectileSpawnerManager;
     [SerializeField] private Health _health;
+    [SerializeField] private SFXEmitter _emitter;
     
     [Header("Player Variables")]
     [SerializeField] private float _maxSpeed = 200f;
@@ -41,12 +42,18 @@ public class PlayerController : MonoBehaviour {
         _rb2D = GetComponent<Rigidbody2D>();
         _inputHandler = GetComponent<InputHandler>();
         _projectileSpawnerManager = GetComponent<ProjectileSpawnerManager>();
+        _emitter = GetComponent<SFXEmitter>();
         _health = GetComponent<Health>();
         _fireTimer = new CountDownTimer(_fireRate);
         _heavyFireTimer = new CountDownTimer(_heavyFireRate);
         _eliteFireTimer = new CountDownTimer(_specialFireRate);
         _playerUI = new PlayerUI(FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>(), FindFirstObjectByType<PlayerHealthBar>().GetComponent<Image>());
         _playerUI.UpdateFireCooldowns(1f, 1f, 1f);
+    }
+
+    private void Start() {
+        _health.OnDamage += (float amount) => _emitter.Play(SoundEffectType.HIT, amount);
+        _health.OnDeath += () => _emitter.Play(SoundEffectType.DESTROY);
     }
 
     public void AddSpawnStrategy(ProjectileSpawnStrategy spawnStrategy) {
@@ -62,14 +69,17 @@ public class PlayerController : MonoBehaviour {
         if (_fireTimer.IsFinished && _inputHandler.FireInput) {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.LIGHT);   
             _fireTimer.Start();
+            _emitter.Play(SoundEffectType.SHOOT);
         }
         if (_heavyFireTimer.IsFinished && _inputHandler.HeavyFireInput) {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.HEAVY);
             _heavyFireTimer.Start();
+            _emitter.Play(SoundEffectType.HEAVY_SHOOT);
         }
         if (_eliteFireTimer.IsFinished && _inputHandler.EliteFireInput) {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.ELITE);
             _eliteFireTimer.Start();
+            _emitter.Play(SoundEffectType.ELITE_SHOOT);
         }
     }
 
