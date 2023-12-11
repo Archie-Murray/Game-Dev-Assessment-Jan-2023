@@ -23,7 +23,6 @@ public class Settings {
     public static readonly Settings Defaults = new Settings(-6f, -6f, -6f, true);
 
     public static void ApplySettings(Settings settings) {
-        Debug.Log($"Main Mixer null: {Globals.Instance.SoundManager.MainMixer == null}");
         Globals.Instance.SoundManager.MainMixer.SetFloat(GLOBAL_VOLUME_PARMETER_NAME, settings.GlobalVolume);
         Globals.Instance.SoundManager.MainMixer.SetFloat(SFX_VOLUME_PARMETER_NAME, settings.SFXVolume);
         Globals.Instance.SoundManager.MainMixer.SetFloat(BGM_VOLUME_PARMETER_NAME, settings.BGMVolume);

@@ -86,7 +86,19 @@ public static class Extensions {
     public static Vector3 Add(this Vector3 vector, float? x = 0, float? y = 0, float? z = 0) {
         return new Vector3(vector.x + (x ?? 0f), vector.y + (y ?? 0f), vector.z + (z ?? 0f));
     }
-    
+
+    ///<summary>
+    ///Adds to the specified component(s) of a vector
+    ///</summary>
+    ///<param name="vector">Vector to modifiy</param>
+    ///<param name="x">Increase in x value if specified</param>
+    ///<param name="y">Increase in y value if specified</param>
+    ///<param name="z">Increase in z value if specified</param>
+    ///<returns>Modified vector</returns>
+    public static Vector2 Multiply(this Vector2 vector, float? x = 1f, float? y = 1f) {
+        return new Vector2(vector.x * (x ?? 1f), vector.y * (y ?? 1f));
+    }
+
     ///<summary>
     ///Changes the colour of the material on the provided SpriteRenderer for the specified time
     ///using a coroutine that must have the MonoBehaviour to attach the coroutine to

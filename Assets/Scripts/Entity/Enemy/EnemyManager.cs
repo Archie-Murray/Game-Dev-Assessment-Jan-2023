@@ -11,6 +11,8 @@ namespace Enemy {
         [SerializeField] private Transform[] _wanderPoints;
         [SerializeField] private Transform[] _spawnPoints;
         [SerializeField] private Transform _target;
+        [SerializeField] private int _spawnCount = 0;
+        [SerializeField] private int _maxSpawnCount = 10;
         [SerializeField] private GameObject _enemyProjectile;
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private CountDownTimer _spawnTimer = new CountDownTimer(5f);
@@ -19,6 +21,7 @@ namespace Enemy {
         public Transform[] WanderPoints { get { return _wanderPoints; } }
         public Transform Target { get { return _target; } }
         public GameObject EnemyProjectile { get { return _enemyProjectile; } }
+        public bool FinishedSpawning => _spawnCount == _maxSpawnCount;
 
         private void Awake() {
             _target = FindFirstObjectByType<PlayerController>().transform;
@@ -29,8 +32,9 @@ namespace Enemy {
 
         private void FixedUpdate() {
             _spawnTimer.Update(Time.fixedDeltaTime);
-            if (_spawnTimer.IsFinished) {
+            if (_spawnTimer.IsFinished && _spawnCount < _maxSpawnCount) {
                 Spawn();
+                _spawnCount++;
                 _spawnTimer.Reset();
                 _spawnTimer.Start();
             }

@@ -69,11 +69,9 @@ public class SettingsManager : MonoBehaviour {
     }
 
     private IEnumerator SaveData() {
-        Task saveTask = File.WriteAllTextAsync(filePath, JsonUtility.ToJson(_currentSettings, true));
-        saveTask.Start();
-        while (!saveTask.IsCompleted) { 
-            yield return Yielders.WaitForEndOfFrame;
-        }
+        string json = JsonUtility.ToJson(_currentSettings, true);
+        yield return Yielders.WaitForFixedUpdate;
+        File.WriteAllText(filePath, json);
         _saveCoroutine = null;
     }
 

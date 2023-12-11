@@ -25,6 +25,10 @@ namespace Boss {
             _attackTimer.Start();
         }
 
+        private void Start() {
+            _health.OnDeath += () => GameManager.Instance.BossDead = true;
+        }
+
         private void FixedUpdate() {
             _attackTimer.Update(Time.fixedDeltaTime);
             Attack();
