@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField] private CanvasGroup _loseScreen;
     [SerializeField] private TickSystem _tickSystem;
     [SerializeField] private EnemyManager[] _enemyManagers = null;
+    private Coroutine _endGameState = null;
 
     private void Start() {
         _enemyManagers = FindObjectsOfType<EnemyManager>();
@@ -34,11 +35,13 @@ public class GameManager : Singleton<GameManager> {
         } 
     }
     private void HandleEndGame(float dt) {
+        if (_endGameState != null) {
+            return;
+        }
         if (GameEnd) {
-            StartCoroutine(WinState());
+            _endGameState = StartCoroutine(WinState());
         } else if (!PlayerAlive) {
-            StartCoroutine(LoseState());
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            _endGameState = StartCoroutine(LoseState());
         }
     }
 

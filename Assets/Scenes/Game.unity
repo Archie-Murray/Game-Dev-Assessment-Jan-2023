@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 4d797c6de4c944e49a2d25bd44846013, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 71cbace93da5b2f4dbd17972e1162862, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1107,6 +1107,8 @@ MonoBehaviour:
   _playerUI:
     _cooldownTimers: []
     _healthBar: {fileID: 0}
+    _healthBarLerp: 0
+    _healthBarSpeed: 0
 --- !u!114 &234830668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1282,7 +1284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b0b1ec77d4b0d47a9dbaa0afc8fbc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 200
   _currentHealth: 0
   _renderer: {fileID: 0}
   _deathTimer: 0.25
@@ -1387,6 +1389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 312263571}
   - component: {fileID: 312263570}
+  - component: {fileID: 312263572}
   m_Layer: 0
   m_Name: Globals
   m_TagString: Untagged
@@ -1453,6 +1456,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &312263572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312263568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01720b0e00fb50898af101cc4dd659bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitParticles: {fileID: 535044548546297520, guid: 68381e0e7cc8dc6568e6a117382fa77d, type: 3}
 --- !u!1 &312894892
 GameObject:
   m_ObjectHideFlags: 0
@@ -5879,7 +5895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1798761820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6472,7 +6488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -630, y: 360}
+  m_AnchoredPosition: {x: -629.99994, y: 360}
   m_SizeDelta: {x: -1260, y: -720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2119414816

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Boss {
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private float _offsetMagnitude;
         [SerializeField] private Vector2 _size;
+
+        private Vector3 RotatedPos => (Vector3) Helpers.FromRadians(-Mathf.Deg2Rad * transform.rotation.eulerAngles.z) * _offsetMagnitude + transform.position;
 
         private void Start() {
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -51,16 +54,21 @@ namespace Boss {
 
         private void Damage() {
             Physics2D.OverlapBoxAll(
-                transform.position + transform.up * _offsetMagnitude,
-                _size, 
-                transform.rotation.eulerAngles.z, 
+                RotatedPos,
+                _size,
+                -transform.rotation.eulerAngles.z,
                 Globals.Instance.PlayerLayer
-            ).Where((Collider2D collider2D) => collider2D.gameObject.HasComponent<PlayerController>())
+            ).Where((Collider2D collision) => collision.gameObject.HasComponent<PlayerController>())?
              .FirstOrDefault().OrNull()?
              .GetComponent<Health>().OrNull()?
              .Damage(_damage);
             _damageTimer.Reset();
             _damageTimer.Start();
+        }
+
+        private void OnDrawGizmos() {
+            if (!Application.isPlaying) return;
+            Gizmos.DrawSphere(RotatedPos, 1f);
         }
 
         private IEnumerator DestroySelf(float time) {
