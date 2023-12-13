@@ -66,6 +66,11 @@ namespace Boss {
             _damageTimer.Start();
         }
 
+        private void OnDrawGizmos() {
+            if (!Application.isPlaying) return;
+            Gizmos.DrawSphere(RotatedPos, 1f);
+        }
+
         private IEnumerator DestroySelf(float time) {
             float destoryTime = 1f / time;
             while (time > 0f) {
