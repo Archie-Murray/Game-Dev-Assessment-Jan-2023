@@ -53,7 +53,6 @@ MonoBehaviour:
     _initialTime: 0
     _time: 0
   _turnSpeed: 0
-  _totalDegrees: 0
   _spriteRenderer: {fileID: 0}
   _offsetMagnitude: 0
   _size: {x: 0, y: 0}

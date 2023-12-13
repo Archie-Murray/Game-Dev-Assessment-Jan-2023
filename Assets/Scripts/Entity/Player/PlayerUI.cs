@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerUI {
     [SerializeField] private Image[] _cooldownTimers;
     [SerializeField] private Image _healthBar;
+    [SerializeField] private float _healthBarLerp = 1f;
+    [SerializeField] private float _healthBarSpeed = 0.05f;
 
     public PlayerUI(Image[] cooldownTimers, Image healthBar) {
         _cooldownTimers = cooldownTimers;
@@ -25,6 +27,7 @@ public class PlayerUI {
     }
 
     public void UpdateHealthBar(float amount) {
-        _healthBar.fillAmount = amount;
+        _healthBarLerp = Mathf.MoveTowards(_healthBarLerp, amount, Time.fixedDeltaTime * _healthBarSpeed);
+        _healthBar.fillAmount = _healthBarLerp;
     }
 }
