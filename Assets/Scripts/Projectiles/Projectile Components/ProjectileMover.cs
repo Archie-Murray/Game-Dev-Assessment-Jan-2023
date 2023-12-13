@@ -12,6 +12,7 @@ namespace ProjectileComponents {
 
         private void OnTriggerEnter2D(Collider2D collision) {
             if (collision.gameObject.HasComponent<Wall>()) {
+                Instantiate(Assets.Instance.HitParticles, transform.position, Quaternion.LookRotation(-transform.up));
                 Destroy(gameObject);
             }
         }

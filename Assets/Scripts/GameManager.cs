@@ -1,17 +1,19 @@
 using System;
+using System.Collections;
 
 using Enemy;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Utilities;
+
 public class GameManager : Singleton<GameManager> {
     public bool BossDead = false;
     public bool PlayerAlive = true;
-    public bool BossSpawned = false;
-
-    TickSystem _tickSystem;
-
+    [SerializeField] private CanvasGroup _winScreen;
+    [SerializeField] private CanvasGroup _loseScreen;
+    [SerializeField] private TickSystem _tickSystem;
     [SerializeField] private EnemyManager[] _enemyManagers = null;
 
     private void Start() {
@@ -33,9 +35,33 @@ public class GameManager : Singleton<GameManager> {
     }
     private void HandleEndGame(float dt) {
         if (GameEnd) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            StartCoroutine(WinState());
         } else if (!PlayerAlive) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            StartCoroutine(LoseState());
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
+
+    private IEnumerator WinState() {
+        ToggleWinScreen(true);
+        yield return Yielders.WaitForSeconds(2f);
+        SceneManager.LoadScene(0);
+    }
+
+    private void ToggleWinScreen(bool toggle) {
+        _winScreen.interactable = toggle;
+        _winScreen.alpha = toggle ? 1f : 0f;
+    }
+
+    private IEnumerator LoseState() {
+        ToggleLoseScreen(true);
+        yield return Yielders.WaitForSeconds(2f);
+        SceneManager.LoadScene(0);
+    }
+
+    private void ToggleLoseScreen(bool toggle) {
+        _loseScreen.interactable = toggle;
+        _loseScreen.alpha = toggle ? 1f : 0f;
+    }
+
 }

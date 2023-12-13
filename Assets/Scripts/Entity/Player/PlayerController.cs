@@ -69,17 +69,17 @@ public class PlayerController : MonoBehaviour {
         if (_fireTimer.IsFinished && _inputHandler.FireInput) {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.LIGHT);   
             _fireTimer.Start();
-            _emitter.Play(SoundEffectType.SHOOT);
+            _emitter.Play(SoundEffectType.PLAYER_LIGHT);
         }
         if (_heavyFireTimer.IsFinished && _inputHandler.HeavyFireInput) {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.HEAVY);
             _heavyFireTimer.Start();
-            _emitter.Play(SoundEffectType.HEAVY_SHOOT);
+            _emitter.Play(SoundEffectType.PLAYER_HEAVY);
         }
         if (_eliteFireTimer.IsFinished && _inputHandler.EliteFireInput) {
             _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.ELITE);
             _eliteFireTimer.Start();
-            _emitter.Play(SoundEffectType.ELITE_SHOOT);
+            _emitter.Play(SoundEffectType.PLAYER_ELITE);
         }
     }
 

@@ -32,6 +32,7 @@ namespace ProjectileComponents {
                 
                 if (entityHealth) {
                     entityHealth.Damage(_damage);
+                    Instantiate(Assets.Instance.HitParticles, transform.position, Quaternion.LookRotation(-transform.up));
                     Destroy(gameObject);
                 }
             }
