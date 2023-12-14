@@ -64,7 +64,7 @@ namespace Boss {
 
             if (entityHealth != null) {
                 entityHealth.Damage(_damage);
-                Instantiate(Assets.Instance.HitParticles, entityHealth.transform.position, Quaternion.LookRotation(-transform.up))'';
+                Instantiate(Assets.Instance.HitParticles, entityHealth.transform.position, Quaternion.LookRotation(-transform.up));
             }
             _damageTimer.Reset();
             _damageTimer.Start();

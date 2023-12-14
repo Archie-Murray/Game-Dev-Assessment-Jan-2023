@@ -1,6 +1,7 @@
 using System;
 
 using UnityEngine;
+using UnityEngine.Audio;
 
 [Serializable]
 public class Settings {
@@ -22,10 +23,16 @@ public class Settings {
 
     public static readonly Settings Defaults = new Settings(-6f, -6f, -6f, true);
 
-    public static void ApplySettings(Settings settings) {
-        Globals.Instance.SoundManager.MainMixer.SetFloat(GLOBAL_VOLUME_PARMETER_NAME, settings.GlobalVolume);
-        Globals.Instance.SoundManager.MainMixer.SetFloat(SFX_VOLUME_PARMETER_NAME, settings.SFXVolume);
-        Globals.Instance.SoundManager.MainMixer.SetFloat(BGM_VOLUME_PARMETER_NAME, settings.BGMVolume);
-        Globals.Instance.TutorialMode = settings.TutorialMode;
+    public static void ApplySettings(Settings settings, bool mainMenu = false, AudioMixer audioMixer = null) {
+        if (!mainMenu) {
+            Globals.Instance.SoundManager.MainMixer.SetFloat(GLOBAL_VOLUME_PARMETER_NAME, settings.GlobalVolume);
+            Globals.Instance.SoundManager.MainMixer.SetFloat(SFX_VOLUME_PARMETER_NAME, settings.SFXVolume);
+            Globals.Instance.SoundManager.MainMixer.SetFloat(BGM_VOLUME_PARMETER_NAME, settings.BGMVolume);
+            Globals.Instance.TutorialMode = settings.TutorialMode;
+        } else if (audioMixer != null) {
+            audioMixer.SetFloat(GLOBAL_VOLUME_PARMETER_NAME, settings.GlobalVolume);
+            audioMixer.SetFloat(SFX_VOLUME_PARMETER_NAME, settings.SFXVolume);
+            audioMixer.SetFloat(BGM_VOLUME_PARMETER_NAME, settings.BGMVolume);
+        }
     }
 }

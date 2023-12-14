@@ -4,6 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 using Utilities;
@@ -15,6 +17,8 @@ public class SettingsManager : MonoBehaviour {
     [SerializeField] private Slider _globalVolumeSlider;
     [SerializeField] private Slider _sfxVolumeSlider;
     [SerializeField] private Slider _bgmVolumeSlider;
+    [SerializeField] private bool _inMainMenu = false;
+    [SerializeField] private AudioMixer _audioMixer;
 
     private Coroutine _saveCoroutine = null;
 
@@ -29,27 +33,38 @@ public class SettingsManager : MonoBehaviour {
         } else {
             _currentSettings = Settings.Defaults;
         }
-        GetComponent<UIMover>().OnCloseFinish += Save;
+        _inMainMenu = SceneManager.GetActiveScene().buildIndex == 0;
+        if (!_inMainMenu) {
+            GetComponent<UIMover>().OnCloseFinish += Save;
+        }
     }
 
     private void Start() {
         _tutorialToggle.onValueChanged.AddListener((bool value) => {
             _currentSettings.TutorialMode = value;
-            Settings.ApplySettings(_currentSettings);
+            ApplySettings();
         });
         _globalVolumeSlider.onValueChanged.AddListener((float value) => { 
             _currentSettings.GlobalVolume = VolumeRemap(value); 
-            Settings.ApplySettings(_currentSettings); 
+            ApplySettings();
         });
         _sfxVolumeSlider.onValueChanged.AddListener((float value) => { 
             _currentSettings.SFXVolume = VolumeRemap(value); 
-            Settings.ApplySettings(_currentSettings); 
+            ApplySettings();
         });
         _bgmVolumeSlider.onValueChanged.AddListener((float value) => { 
             _currentSettings.BGMVolume = VolumeRemap(value); 
-            Settings.ApplySettings(_currentSettings); 
+            ApplySettings();
         });
         LoadSettings();
+    }
+
+    private void ApplySettings() {
+        if (_inMainMenu) {
+            Settings.ApplySettings(_currentSettings, true, _audioMixer);
+        } else {
+            Settings.ApplySettings(_currentSettings);
+        }
     }
 
     private float VolumeRemap(float value) {

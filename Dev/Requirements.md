@@ -2,6 +2,6 @@
 - [x] Enemies
 - [x] Player Controller
 - [x] Shader magic?
-- [ ] Boss
+- [x] Boss
 - [ ] Fix UI looking the way it does
 - [ ] Refactor UI to be a menu
