@@ -66,5 +66,8 @@ public class GameManager : Singleton<GameManager> {
         _loseScreen.interactable = toggle;
         _loseScreen.alpha = toggle ? 1f : 0f;
     }
-
+    
+    public void MainMenu() {
+        SceneManager.LoadScene(0);
+    }
 }

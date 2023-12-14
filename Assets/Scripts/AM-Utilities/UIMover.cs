@@ -31,7 +31,9 @@ public class UIMover : MonoBehaviour {
         _sliders = GetComponentsInChildren<Slider>();
 
         OnCloseStart += () => ToggleUIChildrenInteractable(false);
+        OnCloseFinish += () => ToggleUIChildrenVisible(false);
         OnOpenFinish += () => ToggleUIChildrenInteractable(true);
+        OnOpenStart += () => ToggleUIChildrenVisible(true);
 
         _targetPos = _openByDefault ? OpenPos : ClosedPos;
         ToggleUIChildrenInteractable(_openByDefault);
@@ -68,5 +70,8 @@ public class UIMover : MonoBehaviour {
     private void ToggleUIChildrenInteractable(bool value) {
         _rootGroup.interactable = value;
     }
-
+    
+    private void ToggleUIChildrenVisible(bool value) {
+        _rootGroup.alpha = value ? 1f : 0f;
+    }
 }
