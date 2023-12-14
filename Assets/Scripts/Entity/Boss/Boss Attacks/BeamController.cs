@@ -53,15 +53,19 @@ namespace Boss {
         }
 
         private void Damage() {
-            Physics2D.OverlapBoxAll(
+            Health entityHealth = Physics2D.OverlapBoxAll(
                 RotatedPos,
                 _size,
                 -transform.rotation.eulerAngles.z,
                 Globals.Instance.PlayerLayer
             ).Where((Collider2D collision) => collision.gameObject.HasComponent<PlayerController>())?
              .FirstOrDefault().OrNull()?
-             .GetComponent<Health>().OrNull()?
-             .Damage(_damage);
+             .GetComponent<Health>().OrNull();
+
+            if (entityHealth != null) {
+                entityHealth.Damage(_damage);
+                Instantiate(Assets.Instance.HitParticles, entityHealth.transform.position, Quaternion.LookRotation(-transform.up))'';
+            }
             _damageTimer.Reset();
             _damageTimer.Start();
         }

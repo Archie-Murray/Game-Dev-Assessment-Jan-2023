@@ -476,7 +476,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 0de0ddcade8c182439219ba1f974b8b8, type: 2}
+  sharedProfile: {fileID: 11400000, guid: c39abf2359dc83d4ba52bbe078a8f696, type: 2}
 --- !u!4 &131408919
 Transform:
   m_ObjectHideFlags: 0
@@ -1414,10 +1414,10 @@ MonoBehaviour:
   MainCamera: {fileID: 519420031}
   PlayerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   EnemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   SoundManager:
     MainMixer: {fileID: 24100000, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
     BGM: {fileID: -87496336615929372, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
@@ -2565,7 +2565,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 58a2a001116cf1e49b12c9a35f868b11, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 94d6a39948707774680ca47e01e87636, type: 2}
 --- !u!4 &586527444
 Transform:
   m_ObjectHideFlags: 0
@@ -5548,8 +5548,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4685924387633962151, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
       propertyPath: _bossAttacks.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4685924387633962151, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
+      propertyPath: _bossAttacks.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 72285ce755821a65fbc832950991bca6, type: 2}
     - target: {fileID: 4685924387633962151, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
       propertyPath: _bossAttacks.Array.data[1]
       value: 
@@ -5895,7 +5899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1798761820
 MonoBehaviour:
   m_ObjectHideFlags: 0
