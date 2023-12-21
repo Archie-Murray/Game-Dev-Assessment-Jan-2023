@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf39293f16af34751910cc517e0c0f56, type: 3}
   m_Name: Carpet Bomb
   m_EditorClassIdentifier: 
-  Duration: Infinity
+  Cooldown: 3
   Points: 3
   Damage: 5
   Speed: 5

@@ -8,6 +8,7 @@ namespace Boss {
         public float DamageCooldown = 0.5f;
         public float TurnDirection = 1f;
         public float TotalDegrees = 360f;
+        public float Duration = 1f;
         public override void Attack(Transform origin) {
             GameObject instance = Instantiate(BeamPrefab, origin.position, origin.rotation);
             instance.GetOrAddComponent<BeamController>().Init(Damage, DamageCooldown, TurnDirection, TotalDegrees, Duration);

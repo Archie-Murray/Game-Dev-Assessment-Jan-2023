@@ -22,6 +22,7 @@ namespace Enemy {
         public Transform Target { get { return _target; } }
         public GameObject EnemyProjectile { get { return _enemyProjectile; } }
         public bool FinishedSpawning => _spawnCount == _maxSpawnCount;
+        public Action OnSpawnFinish;
 
         private void Awake() {
             _target = FindFirstObjectByType<PlayerController>().transform;
@@ -37,6 +38,9 @@ namespace Enemy {
                 _spawnCount++;
                 _spawnTimer.Reset();
                 _spawnTimer.Start();
+                if (_spawnCount == _maxSpawnCount) {
+                    OnSpawnFinish?.Invoke();
+                }
             }
         }
 

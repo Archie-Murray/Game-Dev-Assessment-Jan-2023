@@ -18,7 +18,7 @@ namespace Boss {
         [SerializeField] private CountDownTimer _attackTimer;
 
         private void Awake() {
-            _attackTimer = new CountDownTimer(_bossAttacks[_attackIndex].Duration);
+            _attackTimer = new CountDownTimer(_bossAttacks[_attackIndex].Cooldown);
             _agent = GetComponent<NavMeshAgent>();
             _health = GetComponent<Health>();
             _agent.updateUpAxis = false;
@@ -39,7 +39,7 @@ namespace Boss {
                 return;
             }
             _bossAttacks[_attackIndex].Attack(transform);
-            _attackTimer.Reset(_bossAttacks[_attackIndex].Duration);
+            _attackTimer.Reset(_bossAttacks[_attackIndex].Cooldown);
             _attackTimer.Start();
             _attackIndex = ++_attackIndex % _bossAttacks.Count;
         }

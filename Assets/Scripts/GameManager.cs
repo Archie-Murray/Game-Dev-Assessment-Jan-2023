@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 
+using Boss;
+
 using Enemy;
 
 using UnityEngine;
@@ -11,16 +13,22 @@ using Utilities;
 public class GameManager : Singleton<GameManager> {
     public bool BossDead = false;
     public bool PlayerAlive = true;
+    [SerializeField] private BossSpawner _bossSpawner;
     [SerializeField] private CanvasGroup _winScreen;
     [SerializeField] private CanvasGroup _loseScreen;
     [SerializeField] private TickSystem _tickSystem;
     [SerializeField] private EnemyManager[] _enemyManagers = null;
+    [SerializeField] private BossManager _bossManager = null;
     private Coroutine _endGameState = null;
 
     private void Start() {
         _enemyManagers = FindObjectsOfType<EnemyManager>();
+        _bossManager = FindFirstObjectByType<BossManager>();
         _tickSystem = GetComponent<TickSystem>();
         _tickSystem.TickLoop += HandleEndGame;
+        foreach (EnemyManager enemyManager in _enemyManagers) {
+            enemyManager.OnSpawnFinish += CheckBossCanSpawn;
+        }
     }
 
     public bool GameEnd => BossDead && SpawnersFinished;
@@ -42,6 +50,12 @@ public class GameManager : Singleton<GameManager> {
             _endGameState = StartCoroutine(WinState());
         } else if (!PlayerAlive) {
             _endGameState = StartCoroutine(LoseState());
+        }
+    }
+
+    private void CheckBossCanSpawn() {
+        if (SpawnersFinished) {
+            _bossManager.EnableSpawn();
         }
     }
 

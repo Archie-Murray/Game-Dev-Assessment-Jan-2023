@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour {
     [Header("UI")]
     [SerializeField] private PlayerUI _playerUI;
 
+    public float SpeedPercent => Mathf.Clamp01(_speed / _maxSpeed);
+
     private void Awake() {
         _rb2D = GetComponent<Rigidbody2D>();
         _inputHandler = GetComponent<InputHandler>();
