@@ -516,7 +516,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "57a3729a07cf474abc77801ee29f3f34",
     "m_Id": 0,
-    "m_DisplayName": "Glow",
+    "m_DisplayName": "Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1045,10 +1045,10 @@
     "m_Guid": {
         "m_GuidSerialized": "11e2c82a-2440-4ec9-a59a-b1b069603eb0"
     },
-    "m_Name": "Glow",
+    "m_Name": "Color",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Glow",
-    "m_DefaultReferenceName": "_Glow",
+    "m_RefNameGeneratedByDisplayName": "Color",
+    "m_DefaultReferenceName": "_Color",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -1056,7 +1056,7 @@
     "m_DismissedVersion": 0,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_Value": {
         "r": 4.0,
@@ -1064,7 +1064,7 @@
         "b": 4.0,
         "a": 1.0
     },
-    "isMainColor": false,
+    "isMainColor": true,
     "m_ColorMode": 1
 }
 
