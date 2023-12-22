@@ -35,7 +35,8 @@ namespace Boss {
                     .FirstOrDefault().OrNull()?
                     .GetComponent<Health>().OrNull()?
                     .Damage(_damage);
-                Instantiate(Assets.Instance.HitParticles, transform.position, Quaternion.LookRotation(-transform.up));
+                GameObject hitParticles = Instantiate(Assets.Instance.HitParticles, transform.position, Quaternion.LookRotation(-transform.up));
+                Destroy(hitParticles, 1f);
                 Destroy(gameObject);
             } else {
                 //TODO: Fix this to use an arc

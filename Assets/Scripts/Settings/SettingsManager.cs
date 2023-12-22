@@ -22,13 +22,13 @@ public class SettingsManager : MonoBehaviour {
 
     private Coroutine _saveCoroutine = null;
 
-    private string filePath;
+    private string _filePath;
 
     private void Awake() {
         FindFirstObjectByType<WeaponAugmentUIManager>();
-        filePath = Path.Combine(Application.dataPath, "Settings.data");
-        if (File.Exists(filePath)) {
-            _currentSettings = JsonUtility.FromJson<Settings>(File.ReadAllText(filePath));
+        _filePath = Path.Combine(Application.dataPath, "Settings.data");
+        if (File.Exists(_filePath)) {
+            _currentSettings = JsonUtility.FromJson<Settings>(File.ReadAllText(_filePath));
             _currentSettings ??= Settings.Defaults; // Can't compress this as unity is initialising Settings
         } else {
             _currentSettings = Settings.Defaults;
@@ -86,7 +86,7 @@ public class SettingsManager : MonoBehaviour {
     private IEnumerator SaveData() {
         string json = JsonUtility.ToJson(_currentSettings, true);
         yield return Yielders.WaitForFixedUpdate;
-        File.WriteAllText(filePath, json);
+        File.WriteAllText(_filePath, json);
         _saveCoroutine = null;
     }
 
