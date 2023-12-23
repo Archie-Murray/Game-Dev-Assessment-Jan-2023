@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 [Serializable]
 public class PlayerUI : MonoBehaviour {
-    [SerializeField] private Image[] _cooldownTimers;
+    [SerializeField] private Image _lightFire;
+    [SerializeField] private Image _heavyFire;
+    [SerializeField] private Image _eliteFire;
+    [SerializeField] private Image _dashCooldown;
     [SerializeField] private Slider _healthBar;
     [SerializeField] private Image _healthBarFillImage;
     [SerializeField] private Health _health;
@@ -14,21 +17,39 @@ public class PlayerUI : MonoBehaviour {
 
     public void Awake() {
         _health = GetComponent<Health>();
-        _cooldownTimers = FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>();
+        Image[] cooldownTimers = FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>();
+        _lightFire = cooldownTimers[0];
+        _heavyFire = cooldownTimers[1];
+        _eliteFire = cooldownTimers[2];
+        _dashCooldown = cooldownTimers[3];
         _healthBar = FindFirstObjectByType<PlayerHealthBar>().GetComponent<Slider>();
         _healthBarFillImage = _healthBar.GetComponentInChildren<HealthBarFill>().GetComponent<Image>();
     }
 
     public void EnableTimer(ProjectileSpawnStrategyType type) {
-        if (_cooldownTimers[(int)type].color.a == 0f) {
-            _cooldownTimers[(int)type].color = Color.white;
+        switch (type) {
+            case ProjectileSpawnStrategyType.LIGHT:
+                _lightFire.color = Color.white;
+                break;
+            case ProjectileSpawnStrategyType.HEAVY:
+                _heavyFire.color = Color.white;
+                break;
+            case ProjectileSpawnStrategyType.ELITE:
+                _eliteFire.color = Color.white;
+                break;
+            default:
+                break;
         }
     }
 
-    public void UpdateFireCooldowns(float normalProgress, float heavyProgress, float eliteProgress) {
-        _cooldownTimers[0].fillAmount = normalProgress;
-        _cooldownTimers[1].fillAmount = heavyProgress;
-        _cooldownTimers[2].fillAmount = eliteProgress;
+    public void UpdateFireCooldowns(float lightProgress, float heavyProgress, float eliteProgress) {
+        _lightFire.fillAmount = lightProgress;
+        _heavyFire.fillAmount = heavyProgress;
+        _eliteFire.fillAmount = eliteProgress;
+    }
+
+    public void UpdateDashCooldown(float progress) {
+        _dashCooldown.fillAmount = progress;
     }
 
     public void UpdateHealthBar() {

@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour {
         _dashTimer.Update(Time.fixedDeltaTime);
         _playerUI.UpdateFireCooldowns(1f - _fireTimer.Progress, 1f - _heavyFireTimer.Progress, 1f - _eliteFireTimer.Progress);
         _playerUI.UpdateHealthBar();
+        _playerUI.UpdateDashCooldown(1f - _dashTimer.Progress);
     }
 
     private void RotateToMouse() {
