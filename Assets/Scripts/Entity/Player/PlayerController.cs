@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
         _fireTimer = new CountDownTimer(_fireRate);
         _heavyFireTimer = new CountDownTimer(_heavyFireRate);
         _eliteFireTimer = new CountDownTimer(_specialFireRate);
-        _playerUI = new PlayerUI(FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>(), FindFirstObjectByType<PlayerHealthBar>().GetComponent<Image>());
+        _playerUI = GetComponent<PlayerUI>();
         _playerUI.UpdateFireCooldowns(1f, 1f, 1f);
         _dashTimer = new CountDownTimer(_dashCooldown);
         _dashTimer.Start();
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour {
         _eliteFireTimer.Update(Time.fixedDeltaTime);
         _dashTimer.Update(Time.fixedDeltaTime);
         _playerUI.UpdateFireCooldowns(1f - _fireTimer.Progress, 1f - _heavyFireTimer.Progress, 1f - _eliteFireTimer.Progress);
-        _playerUI.UpdateHealthBar(_health.PercentHealth);
+        _playerUI.UpdateHealthBar();
     }
 
     private void RotateToMouse() {
