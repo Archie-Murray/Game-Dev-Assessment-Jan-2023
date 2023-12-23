@@ -15,7 +15,7 @@ MonoBehaviour:
   Cooldown: 5
   BeamPrefab: {fileID: 7683588836477507964, guid: 0235d9d34e50cbe458e027ab7705e295, type: 3}
   Damage: 10
-  DamageCooldown: 0.5
+  DamageCooldown: 0.1
   TurnDirection: 3
   TotalDegrees: 360
   Duration: 1

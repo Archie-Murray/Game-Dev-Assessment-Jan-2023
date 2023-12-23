@@ -56,7 +56,7 @@ namespace Boss {
             Health entityHealth = Physics2D.OverlapBoxAll(
                 RotatedPos,
                 _size,
-                -transform.rotation.eulerAngles.z,
+                transform.rotation.eulerAngles.z,
                 Globals.Instance.PlayerLayer
             ).Where((Collider2D collision) => collision.gameObject.HasComponent<PlayerController>())?
              .FirstOrDefault().OrNull()?
@@ -70,10 +70,13 @@ namespace Boss {
             _damageTimer.Start();
         }
 
-        private void OnDrawGizmos() {
-            if (!Application.isPlaying) return;
-            Gizmos.DrawSphere(RotatedPos, 1f);
-        }
+        //private void OnDrawGizmos() {
+        //    if (!Application.isPlaying) return;
+        //    Gizmos.DrawSphere(RotatedPos, 1f);
+        //    Gizmos.matrix = Matrix4x4.Translate(transform.position) * Matrix4x4.Rotate(Quaternion.AngleAxis(transform.eulerAngles.z, Vector3.forward));
+        //    Gizmos.DrawCube(Vector3.up * _offsetMagnitude, _size);
+        //    Gizmos.matrix = Matrix4x4.identity;
+        //}
 
         private IEnumerator DestroySelf(float time) {
             float destoryTime = 1f / time;
