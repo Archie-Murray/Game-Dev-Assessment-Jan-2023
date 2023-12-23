@@ -13,6 +13,7 @@ using Utilities;
 public class GameManager : Singleton<GameManager> {
     public bool BossDead = false;
     public bool PlayerAlive = true;
+    public bool InMenu = false;
     [SerializeField] private BossSpawner _bossSpawner;
     [SerializeField] private CanvasGroup _winScreen;
     [SerializeField] private CanvasGroup _loseScreen;

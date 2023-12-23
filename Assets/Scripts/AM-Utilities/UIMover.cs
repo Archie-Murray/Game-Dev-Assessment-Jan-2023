@@ -20,20 +20,20 @@ public class UIMover : MonoBehaviour {
     public Action OnOpenStart;
     public Action OnOpenFinish;
 
-    Button[] _buttons = null;
-    Slider[] _sliders = null;
-
     private void Awake() {
         _root = GetComponentInChildren<UIRoot>().GetComponent<RectTransform>();
         _rootAnchor = GetComponentInChildren<UIAnchor>().GetComponent<RectTransform>();
         _rootGroup = _root.GetComponent<CanvasGroup>();
-        _buttons = GetComponentsInChildren<Button>();
-        _sliders = GetComponentsInChildren<Slider>();
 
         OnCloseStart += () => ToggleUIChildrenInteractable(false);
         OnCloseFinish += () => ToggleUIChildrenVisible(false);
         OnOpenFinish += () => ToggleUIChildrenInteractable(true);
         OnOpenStart += () => ToggleUIChildrenVisible(true);
+
+        if (_key == KeyCode.Escape) {
+            OnCloseStart += () => GameManager.Instance.InMenu = false;
+            OnOpenStart += () => GameManager.Instance.InMenu = true;
+        }
 
         _targetPos = _openByDefault ? OpenPos : ClosedPos;
         ToggleUIChildrenInteractable(_openByDefault);

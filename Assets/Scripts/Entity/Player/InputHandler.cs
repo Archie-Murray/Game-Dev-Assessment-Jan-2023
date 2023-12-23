@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour {
     public Vector2 MousePosition;
     public float DashInput;
     public float SprintInput;
+    public float BrakeInput;
     public bool FireInput;
     public bool HeavyFireInput;
     public bool EliteFireInput;
@@ -20,7 +21,11 @@ public class InputHandler : MonoBehaviour {
         _inputActions.PlayerControls.Move.performed += MoveHandle;
         _inputActions.PlayerControls.Move.canceled += MoveHandle;
         _inputActions.PlayerControls.Dash.started += DashHandle;
-        _inputActions.PlayerControls.Dash.performed += ResetDash;
+        _inputActions.PlayerControls.Dash.performed += DashHandle;
+        _inputActions.PlayerControls.Dash.canceled += DashHandle;
+        _inputActions.PlayerControls.Brake.started += BrakeHandle;
+        _inputActions.PlayerControls.Brake.performed += BrakeHandle;
+        _inputActions.PlayerControls.Brake.canceled += BrakeHandle;
         _inputActions.PlayerControls.Sprint.started += SprintHandle;
         _inputActions.PlayerControls.Sprint.performed += SprintHandle;
         _inputActions.PlayerControls.Sprint.canceled += SprintHandle;
@@ -36,10 +41,10 @@ public class InputHandler : MonoBehaviour {
     }
 
     private void LookHandle(InputAction.CallbackContext context) => MousePosition = context.ReadValue<Vector2>();
-    private void ResetDash(InputAction.CallbackContext context) => DashInput = 0f;
     private void MoveHandle(InputAction.CallbackContext context) => MoveInput = context.ReadValue<Vector2>();
     private void DashHandle(InputAction.CallbackContext context) => DashInput = context.ReadValue<float>();
     private void SprintHandle(InputAction.CallbackContext context) => SprintInput = context.ReadValue<float>();
+    private void BrakeHandle(InputAction.CallbackContext context) => BrakeInput = context.ReadValue<float>();
     private void FireHandle(InputAction.CallbackContext context) => FireInput = context.ReadValueAsButton();
     private void HeavyFireHandle(InputAction.CallbackContext context) => HeavyFireInput = context.ReadValueAsButton();
     private void MagicFireHandle(InputAction.CallbackContext context) => EliteFireInput = context.ReadValueAsButton();
@@ -51,4 +56,5 @@ public class InputHandler : MonoBehaviour {
     public bool IsMovePressed => MoveInput.sqrMagnitude > 0;
     public bool IsDashPressed => !Mathf.Approximately(DashInput, 0f);
     public bool IsSprintPressed => !Mathf.Approximately(SprintInput, 0f);
+    public bool BrakePressed => !Mathf.Approximately(BrakeInput, 0f);
 }

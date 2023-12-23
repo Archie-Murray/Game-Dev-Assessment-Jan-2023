@@ -357,7 +357,7 @@ Transform:
   m_Children:
   - {fileID: 1199861739}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &116661934
 GameObject:
@@ -537,7 +537,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &137873949
 GameObject:
@@ -825,7 +825,7 @@ RectTransform:
   - {fileID: 33006117}
   - {fileID: 1855310870}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1130,10 +1130,9 @@ MonoBehaviour:
   _projectileSpawnerManager: {fileID: 0}
   _health: {fileID: 0}
   _emitter: {fileID: 0}
-  _maxSpeed: 200
-  _sprintSpeed: 300
+  _maxSpeed: 5
+  _sprintSpeed: 7
   _acceleration: 600
-  _dashImpulse: 400
   _maxRotationSpeed: 5
   _rotationAcceleration: 5
   _speed: 0
@@ -1156,6 +1155,13 @@ MonoBehaviour:
     _healthBar: {fileID: 0}
     _healthBarLerp: 0
     _healthBarSpeed: 0
+  _dashCooldown: 2
+  _dashForce: 20
+  _dashTimer:
+    _initialTime: 0
+    _time: 0
+  _dashPressed: 0
+  _brakeForce: 4
 --- !u!114 &234830668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1172,6 +1178,7 @@ MonoBehaviour:
   MousePosition: {x: 0, y: 0}
   DashInput: 0
   SprintInput: 0
+  BrakeInput: 0
   FireInput: 0
   HeavyFireInput: 0
   EliteFireInput: 0
@@ -1235,7 +1242,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -1316,6 +1323,7 @@ Transform:
   - {fileID: 1749792969}
   - {fileID: 1677793591}
   - {fileID: 1697604219}
+  - {fileID: 1960490550}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1501,7 +1509,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &312263572
 MonoBehaviour:
@@ -2626,7 +2634,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
@@ -2942,7 +2950,7 @@ Transform:
   - {fileID: 1120413407}
   - {fileID: 383854848}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &735504032
 GameObject:
@@ -4622,7 +4630,7 @@ RectTransform:
   - {fileID: 137873950}
   - {fileID: 1099509437}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4846,7 +4854,7 @@ RectTransform:
   - {fileID: 673617736}
   - {fileID: 2119414815}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6017,7 +6025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6456,7 +6464,7 @@ Transform:
   - {fileID: 1693402497}
   - {fileID: 215182243}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1804299038
 GameObject:
@@ -6587,7 +6595,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1804625720
 MonoBehaviour:
@@ -6914,7 +6922,7 @@ GameObject:
   - component: {fileID: 1960490551}
   - component: {fileID: 1960490554}
   m_Layer: 8
-  m_Name: Particle Emitter
+  m_Name: Velocity Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6928,12 +6936,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1960490549}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -7.49, y: -0.717, z: 0}
+  m_LocalPosition: {x: 0, y: -0.617, z: 0}
   m_LocalScale: {x: 0.0625, y: 0.0625, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 234830673}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &1960490551
 MonoBehaviour:
@@ -6978,11 +6986,13 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   _emitter: {fileID: 0}
-  _playerController: {fileID: 0}
+  _rb2D: {fileID: 0}
   _targetColour: {r: 1, g: 1, b: 1, a: 1}
   _spriteRenderer: {fileID: 0}
   _turnSpeed: 5
   _offset: 0.6
+  _maxSpeed: 6
+  _speedPercent: 0
 --- !u!199 &1960490552
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -12338,5 +12348,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

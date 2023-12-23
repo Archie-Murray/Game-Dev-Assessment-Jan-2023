@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -18,7 +20,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float _maxSpeed = 200f;
     [SerializeField] private float _sprintSpeed = 300f;
     [SerializeField] private float _acceleration = 600f;
-    [SerializeField] private float _dashImpulse = 400f;
     [SerializeField] private float _maxRotationSpeed = 5f;
     [SerializeField] private float _rotationAcceleration = 5f;
 
@@ -38,6 +39,13 @@ public class PlayerController : MonoBehaviour {
     [Header("UI")]
     [SerializeField] private PlayerUI _playerUI;
 
+    [Header("Movement Abilities")]
+    [SerializeField] private float _dashCooldown = 2f;
+    [SerializeField] private float _dashForce = 5f;
+    [SerializeField] private CountDownTimer _dashTimer;
+    [SerializeField] private bool _dashPressed = false; //Need to make sure this is consumed in FixedUpdate
+    [SerializeField] private float _brakeForce = 4f;
+
     public float SpeedPercent => Mathf.Clamp01(_speed / _maxSpeed);
 
     private void Awake() {
@@ -51,6 +59,8 @@ public class PlayerController : MonoBehaviour {
         _eliteFireTimer = new CountDownTimer(_specialFireRate);
         _playerUI = new PlayerUI(FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>(), FindFirstObjectByType<PlayerHealthBar>().GetComponent<Image>());
         _playerUI.UpdateFireCooldowns(1f, 1f, 1f);
+        _dashTimer = new CountDownTimer(_dashCooldown);
+        _dashTimer.Start();
     }
 
     private void Start() {
@@ -64,24 +74,29 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
-        if (_inputHandler.IsDashPressed) {
-            _rb2D.AddForce(transform.up * _dashImpulse, ForceMode2D.Impulse);
+        if (GameManager.Instance.InMenu) {
+            return;
         }
-
         if (_fireTimer.IsFinished && _inputHandler.FireInput) {
-            _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.LIGHT);   
-            _fireTimer.Start();
-            _emitter.Play(SoundEffectType.PLAYER_LIGHT);
+            if (_projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.LIGHT)) {
+                _fireTimer.Start();
+                _emitter.Play(SoundEffectType.PLAYER_LIGHT);
+            }   
         }
         if (_heavyFireTimer.IsFinished && _inputHandler.HeavyFireInput) {
-            _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.HEAVY);
-            _heavyFireTimer.Start();
-            _emitter.Play(SoundEffectType.PLAYER_HEAVY);
+            if (_projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.HEAVY)) {
+                _emitter.Play(SoundEffectType.PLAYER_HEAVY);
+                _heavyFireTimer.Start();
+            }
         }
         if (_eliteFireTimer.IsFinished && _inputHandler.EliteFireInput) {
-            _projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.ELITE);
-            _eliteFireTimer.Start();
-            _emitter.Play(SoundEffectType.PLAYER_ELITE);
+            if (_projectileSpawnerManager.Fire(ProjectileSpawnStrategyType.ELITE)) {
+                _eliteFireTimer.Start();
+                _emitter.Play(SoundEffectType.PLAYER_ELITE);
+            }
+        }
+        if (_inputHandler.IsDashPressed && _dashTimer.IsFinished) {
+            _dashPressed = true;
         }
     }
 
@@ -91,6 +106,7 @@ public class PlayerController : MonoBehaviour {
         _fireTimer.Update(Time.fixedDeltaTime);
         _heavyFireTimer.Update(Time.fixedDeltaTime);
         _eliteFireTimer.Update(Time.fixedDeltaTime);
+        _dashTimer.Update(Time.fixedDeltaTime);
         _playerUI.UpdateFireCooldowns(1f - _fireTimer.Progress, 1f - _heavyFireTimer.Progress, 1f - _eliteFireTimer.Progress);
         _playerUI.UpdateHealthBar(_health.PercentHealth);
     }
@@ -103,13 +119,35 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Move() {
-        if (_inputHandler.IsMovePressed) {
-            _speed = Mathf.MoveTowards(_speed, Mathf.Lerp(_maxSpeed, _sprintSpeed, _inputHandler.SprintInput), Time.fixedDeltaTime * _acceleration);
-            _velocity = Time.fixedDeltaTime * _speed * _inputHandler.MoveInput;
+        _velocity = _rb2D.velocity;
+        _speed = Mathf.MoveTowards(_speed, GetTargetSpeed(), Time.fixedDeltaTime * _acceleration);
+        if (!_inputHandler.BrakePressed) {
+            _rb2D.velocity += Time.fixedDeltaTime * _speed * _inputHandler.MoveInput;
+            _rb2D.velocity = _rb2D.velocity.ClampMagnitude(GetMaxSpeed());
         } else {
-            _speed = Mathf.MoveTowards(_speed, 0f, Time.fixedDeltaTime * _acceleration);
-            _velocity = Time.fixedDeltaTime * _speed * _velocity.normalized;
+            _rb2D.velocity += Time.fixedDeltaTime * _brakeForce * Mathf.Lerp(0, 1f, _rb2D.velocity.magnitude / GetMaxSpeed()) * -_rb2D.velocity.normalized;
         }
-        _rb2D.velocity = _velocity;
+        if (_dashPressed) {
+            _dashPressed = false;
+            _rb2D.AddForce(transform.up * _dashForce, ForceMode2D.Impulse);
+            _dashTimer.Reset();
+            _dashTimer.Start();
+        }
+    }
+
+    private float GetTargetSpeed() {
+        if (!_inputHandler.IsMovePressed) {
+            return 0f;
+        } else {
+            return _inputHandler.IsSprintPressed ? _sprintSpeed : _maxSpeed;
+        }
+    }
+
+    private float GetMaxSpeed() {
+        if (_dashTimer.IsRunning) {
+            return _dashForce;
+        } else {
+            return _inputHandler.IsSprintPressed ? _sprintSpeed : _maxSpeed;
+        }
     }
 }

@@ -33,6 +33,12 @@ namespace Utilities {
             }
         }
 
+        public void Finish() {
+            IsRunning = false;
+            _time = _initialTime;
+            OnTimerStop?.Invoke();
+        }
+
         public void Resume() => IsRunning = true;
         public void Pause() => IsRunning = false;
         public abstract void Update(float deltaTime);

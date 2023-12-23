@@ -25,12 +25,21 @@
                 },
                 {
                     "name": "Dash",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "202dde82-8e02-4eb6-bf06-fbae19f1a63e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Brake",
+                    "type": "Button",
+                    "id": "f139aad5-6581-4690-bee9-24d3b5f61140",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Sprint",
@@ -188,6 +197,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Special Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dfc39b7c-05b4-4aab-898d-21c2f4c51f1c",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -99,6 +99,14 @@ public static class Extensions {
         return new Vector2(vector.x * (x ?? 1f), vector.y * (y ?? 1f));
     }
 
+    public static Vector2 ClampMagnitude(this Vector2 vector, float magnitude) {
+        if (vector.sqrMagnitude > (magnitude * magnitude)) {
+            vector.Normalize();
+            vector *= magnitude;
+        }
+        return vector;
+    }
+
     ///<summary>
     ///Changes the colour of the material on the provided SpriteRenderer for the specified time
     ///using a coroutine that must have the MonoBehaviour to attach the coroutine to

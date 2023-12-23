@@ -49,9 +49,10 @@ public class ProjectileSpawnerManager : MonoBehaviour {
         }
     }
 
-    public void Fire(ProjectileSpawnStrategyType type) {
+    public bool Fire(ProjectileSpawnStrategyType type) {
         foreach (ProjectileSpawner projectileSpawner in _projectileSpawners[type]) {
             projectileSpawner.Fire();
         }
+        return _projectileSpawners[type].Count > 0;
     }
 }
