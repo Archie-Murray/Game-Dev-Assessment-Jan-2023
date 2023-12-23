@@ -20,6 +20,7 @@ public class VelocityRenderer : MonoBehaviour {
         _rb2D = transform.parent.GetComponent<Rigidbody2D>();        
         _spriteRenderer = GetComponent<SpriteRenderer>();
         transform.parent = null;
+        _rb2D.GetComponent<Health>().OnDeath += () => Destroy(gameObject);
     }
     private void FixedUpdate() {
         _speedPercent = GetSpeedPercent();
