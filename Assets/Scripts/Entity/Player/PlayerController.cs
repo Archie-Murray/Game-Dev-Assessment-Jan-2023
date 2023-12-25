@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private SFXEmitter _emitter;
     
     [Header("Player Variables")]
-    [SerializeField] private float _maxSpeed = 200f;
-    [SerializeField] private float _sprintSpeed = 300f;
+    [SerializeField] private float _maxSpeed = 5f;
+    [SerializeField] private float _sprintSpeed = 7f;
     [SerializeField] private float _acceleration = 600f;
     [SerializeField] private float _maxRotationSpeed = 5f;
     [SerializeField] private float _rotationAcceleration = 5f;
@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour {
     [Header("Gameplay Variables")]
     [SerializeField] private float _speed;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private Vector2 _velocity;
 
     [Header("Projectiles")]
     [SerializeField] private float _fireRate = 0.25f;
@@ -41,10 +40,10 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Movement Abilities")]
     [SerializeField] private float _dashCooldown = 2f;
-    [SerializeField] private float _dashForce = 5f;
+    [SerializeField] private float _dashForce = 20f;
     [SerializeField] private CountDownTimer _dashTimer;
     [SerializeField] private bool _dashPressed = false; //Need to make sure this is consumed in FixedUpdate
-    [SerializeField] private float _brakeForce = 4f;
+    [SerializeField] private float _brakeForce = 20f;
 
     public float SpeedPercent => Mathf.Clamp01(_speed / _maxSpeed);
 
@@ -120,7 +119,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Move() {
-        _velocity = _rb2D.velocity;
         _speed = Mathf.MoveTowards(_speed, GetTargetSpeed(), Time.fixedDeltaTime * _acceleration);
         if (!_inputHandler.BrakePressed) {
             _rb2D.velocity += Time.fixedDeltaTime * _speed * _inputHandler.MoveInput;
