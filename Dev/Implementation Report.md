@@ -279,7 +279,7 @@ namespace Enemy {
 ```
 
 ## Boss Attack Strategies
-The boss attacks in the game are stored as a list of `BossAttacks` which is an abstract class inheriting `ScriptableObject` and providing an abstract `Spawn(Transform origin)` method that concrete implementations must implement.
+The boss attacks in the game are stored as a list of `BossAttacks` which is an abstract class inheriting `ScriptableObject` and providing an abstract `Attack(Transform origin)` method that concrete implementations must implement.
 ```cs
 using UnityEngine;
 namespace Boss {
