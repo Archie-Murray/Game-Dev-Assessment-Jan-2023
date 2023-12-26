@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour {
             _rb2D.velocity += Time.fixedDeltaTime * _speed * _inputHandler.MoveInput;
             _rb2D.velocity = _rb2D.velocity.ClampMagnitude(GetMaxSpeed());
         } else {
-            _rb2D.velocity += Time.fixedDeltaTime * _brakeForce * Mathf.Lerp(0, 1f, _rb2D.velocity.magnitude / GetMaxSpeed()) * -_rb2D.velocity.normalized;
+            _rb2D.velocity += (Time.fixedDeltaTime * _brakeForce * -_rb2D.velocity.normalized).ClampMagnitude(_rb2D.velocity.magnitude);
         }
         if (_dashPressed) {
             _dashPressed = false;
