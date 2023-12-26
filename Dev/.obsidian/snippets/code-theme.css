@@ -1,0 +1,86 @@
+/* CodeBlockHighlighting */
+span.cm-hmd-codeblock.cm-keyword {
+    color: #D73A49;
+}
+span.cm-hmd-codeblock.cm-variable {
+    color: #6F42C1;
+}
+span.cm-hmd-codeblock.cm-number {
+    color: #0c60a5;
+}
+span.cm-atom.cm-hmd-codelock {
+    color: #0c60a5;
+}
+span.cm-hmd-codeblock.cm-string {
+    color: #0c60a5;
+}
+span.cm-hmd-codeblock.cm-operator {
+    color: #CB5C69;
+}
+span.cm-comment.cm-hmd-codeblock {
+    color: #6A737D;
+}
+span.cm-hmd-codeblock.cm-type {
+    color: #D73A49;
+}
+span.cm-hmd-codeblock.cm-function {
+    color: #0D7579;
+}
+span.cm-hmd-codeblock {
+    color: #24292e;
+} 
+div.HyperMD-codeblock-bg.cm-line {
+    background-color: #eceff4;
+}
+
+/* Embeded Code Block */
+code.language-cs.is-loaded {
+    color: #6F42C1;
+}
+span.token.keyword {
+    color: #D73A49;
+}
+span.token.class-name {
+    color: #D73A49;
+}
+span.token.directive.keyword {
+    color: #fff;
+}
+span.token.function {
+    color: #0D7579;
+}
+span.token.namespace, span.token.punctuation {
+    color: #CB5C69;
+}
+span.token.preprocessor.property {
+    color: #CB5C69;
+}
+span.token.variable {
+    color: #6F42C1;
+}
+span.token.boolean {
+    color: #0c60a5;
+}
+span.token.number {
+    color: #0c60a5;
+}
+span.token.string {
+    color: #0c60a5;
+}
+span.comment {
+    color: #6A737D;
+}
+span.token.operator {
+    color: #CB5C69;
+}
+pre.language-cs {
+    background-color: #eceff4;
+}
+span, div.HyperMd-codeblock {
+  caret-color: #000;
+}
+
+
+
+
+

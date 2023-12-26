@@ -50,7 +50,7 @@ namespace Enemy {
             _stateFactory = new EnemyState.EnemyStateFactory(this, GetComponent<SpriteRenderer>(), _enemyManager);
             _state = _stateFactory.State<EnemyPatrolState>();
             if (_state == null) {
-                Debug.Log("State was not initialised, help, aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                Debug.LogError("State was not initialised!");
             }
             _state?.Start();
         }
