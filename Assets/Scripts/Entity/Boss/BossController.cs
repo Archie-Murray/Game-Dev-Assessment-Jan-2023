@@ -27,6 +27,7 @@ namespace Boss {
 
         private void Start() {
             _health.OnDeath += () => GameManager.Instance.BossDead = true;
+            _health.OnDeath += () => Globals.Instance.AddMoney(100);
         }
 
         private void FixedUpdate() {
