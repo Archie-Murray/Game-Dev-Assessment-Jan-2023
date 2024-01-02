@@ -344,3 +344,278 @@ namespace Boss {
 
 }
 ```
+
+## Saving Player Settings
+Saving player settings is handled by serialising and deserialising the `Settings` class to and from a JSON format, the `SettingsManager` class which handles callbacks for the sliders to change the setting values and also saving and loading data:
+```cs
+using System;
+using System.Collections;
+using System.IO;
+
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+using Utilities;
+
+public class SettingsManager : MonoBehaviour {
+    [SerializeField] private Settings _currentSettings;
+    public Settings CurrentSettings => _currentSettings;
+    [SerializeField] private Toggle _tutorialToggle;
+    [SerializeField] private Slider _globalVolumeSlider;
+    [SerializeField] private Slider _sfxVolumeSlider;
+    [SerializeField] private Slider _bgmVolumeSlider;
+    [SerializeField] private bool _inMainMenu = false;
+    [SerializeField] private AudioMixer _audioMixer;
+
+    private Coroutine _saveCoroutine = null;
+
+    private string _filePath;
+
+    private void Awake() {
+        FindFirstObjectByType<WeaponAugmentUIManager>();
+        _filePath = Path.Combine(Application.dataPath, "Settings.data");
+        if (File.Exists(_filePath)) {
+            _currentSettings = JsonUtility.FromJson<Settings>(File.ReadAllText(_filePath));
+            _currentSettings ??= Settings.Defaults; // Can't compress this as unity is initialising Settings
+        } else {
+            _currentSettings = Settings.Defaults;
+        }
+        _inMainMenu = SceneManager.GetActiveScene().buildIndex == 0;
+        if (!_inMainMenu) {
+            GetComponent<UIMover>().OnCloseFinish += Save;
+        }
+    }
+
+    private void Start() {
+        _tutorialToggle.onValueChanged.AddListener((bool value) => {
+            _currentSettings.TutorialMode = value;
+            ApplySettings();
+        });
+        _globalVolumeSlider.onValueChanged.AddListener((float value) => { 
+            _currentSettings.GlobalVolume = VolumeRemap(value); 
+            ApplySettings();
+        });
+        _sfxVolumeSlider.onValueChanged.AddListener((float value) => { 
+            _currentSettings.SFXVolume = VolumeRemap(value); 
+            ApplySettings();
+        });
+        _bgmVolumeSlider.onValueChanged.AddListener((float value) => { 
+            _currentSettings.BGMVolume = VolumeRemap(value); 
+            ApplySettings();
+        });
+        LoadSettings();
+    }
+
+    private void ApplySettings() {
+        if (_inMainMenu) {
+            Settings.ApplySettings(_currentSettings, true, _audioMixer);
+        } else {
+            Settings.ApplySettings(_currentSettings);
+        }
+    }
+
+    private float VolumeRemap(float value) {
+        return 20f * Mathf.Log10(value);
+    }
+
+    private float ReverseVolumeRemap(float value) {
+        return Mathf.Pow(10, value / 20f);
+    }
+
+    public void Save() {
+        if (_saveCoroutine != null) {
+            StopCoroutine(_saveCoroutine); 
+            _saveCoroutine = null;
+        }
+        _saveCoroutine = StartCoroutine(SaveData());
+    }
+
+    private IEnumerator SaveData() {
+        string json = JsonUtility.ToJson(_currentSettings, true);
+        yield return Yielders.WaitForFixedUpdate;
+        File.WriteAllText(_filePath, json);
+        _saveCoroutine = null;
+    }
+
+    public void LoadSettings() {
+        _globalVolumeSlider.value = ReverseVolumeRemap(_currentSettings.GlobalVolume);
+        _sfxVolumeSlider.value = ReverseVolumeRemap(_currentSettings.SFXVolume);
+        _bgmVolumeSlider.value = ReverseVolumeRemap(_currentSettings.BGMVolume);
+        _tutorialToggle.isOn = _currentSettings.TutorialMode;
+    }
+}
+```
+
+The `Settings` class is a simple class to hold volume and tutorial settings with a few fields and a static `ApplySettings()` method that is overloaded so it can be used in both the main menu and in game as the `Globals` singleton providing a reference to the `AudioMixer` is not present in the main menu.
+
+## Player Attacks
+Player attacks use the same strategy pattern solution as boss attacks however they are given a class allowing the player to have multiple different attacks based on available augment slots but is able to use all augments of the same type at once:
+
+In this case concrete implementations of the `ProjectileSpawnStrategy ScriptableObject` have to define a `Fire` method where they create instances of a bullet prefab and attach relevant components:
+```cs
+using ProjectileComponents;
+
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Shotgun Spawn Strategy", menuName = "Projectile Spawn Strategy/Shotgun")]
+public class ShotgunSpawnStrategy : ProjectileSpawnStrategy {
+    public GameObject Projectile;
+
+    public ShotgunSpawnStrategy(GameObject projectile) {
+        Projectile = projectile;
+    }
+
+    public float Count;
+    public float SpreadAngle;
+
+    public override void Fire(Transform origin) {
+        float startAngle = Vector2.SignedAngle(origin.up, Vector3.up);
+        float halfSpread = SpreadAngle * 0.5f;
+        for (float angle = startAngle - halfSpread; angle <= startAngle + halfSpread; angle += SpreadAngle / Count) {
+            GameObject projectileInstance = Instantiate(Projectile, origin.position + (Vector3) (Helpers.FromRadians(angle * Mathf.Deg2Rad) * 2f), Quaternion.AngleAxis(angle, Vector3.back));
+            projectileInstance.GetOrAddComponent<AutoDestroy>().Duration = Duration;
+            projectileInstance.GetOrAddComponent<ProjectileMover>().Speed = Speed;
+            projectileInstance.GetOrAddComponent<PlayerProjectile>();
+            projectileInstance.GetOrAddComponent<EntityDamager>().Init(DamageFilter.Enemy, Damage);
+        }
+    }
+}
+```
+
+```cs
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ProjectileSpawnerManager : MonoBehaviour {
+    [SerializeField] private Dictionary<ProjectileSpawnStrategyType, Transform[]> _sockets;
+    [SerializeField] private Dictionary<ProjectileSpawnStrategyType, List<ProjectileSpawner>> _projectileSpawners;
+
+    private void Awake() {
+        _sockets = new Dictionary<ProjectileSpawnStrategyType, Transform[]>();
+        _projectileSpawners = new Dictionary<ProjectileSpawnStrategyType, List<ProjectileSpawner>>();
+        foreach (ProjectileSpawnStrategyType type in Enum.GetValues(typeof(ProjectileSpawnStrategyType))) {
+            _projectileSpawners.Add(type, new List<ProjectileSpawner>());
+        }
+
+        InitSockets<LightSocket>(ProjectileSpawnStrategyType.LIGHT);
+        InitSockets<HeavySocket>(ProjectileSpawnStrategyType.HEAVY);
+        InitSockets<EliteSocket>(ProjectileSpawnStrategyType.ELITE);
+    }
+
+    private void InitSockets<T>(ProjectileSpawnStrategyType strategyType) where T : Component {
+        Transform socketRoot = FindAnyObjectByType<T>().OrNull()?.transform ?? null;
+        if (socketRoot == null) { 
+            Debug.LogWarning("Could not find socket of type: " + typeof(T));
+            return;
+        }
+        List<Transform> sockets = new List<Transform>();
+        for (int i = 0; i < socketRoot.childCount; i++) {
+            sockets.Add(socketRoot.GetChild(i));
+        }
+        _sockets.Add(strategyType, sockets.ToArray());
+    }
+
+    public void TryAddSpawner(ProjectileSpawnStrategy spawnStrategy) {
+        _sockets.TryGetValue(spawnStrategy.Type, out Transform[] sockets);
+        if (sockets == null) {
+            Debug.LogWarning("Could not find sockets for type: " + spawnStrategy.Type);
+            return;
+        }
+        foreach (Transform socket in sockets) { 
+            if (socket.childCount == 0) {
+                GameObject firePoint = new GameObject($"{spawnStrategy.Type}");
+                firePoint.transform.parent = socket;
+                firePoint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                _projectileSpawners[spawnStrategy.Type].Add(new ProjectileSpawner(spawnStrategy, firePoint.transform));
+                Globals.Instance.AddMoney(-spawnStrategy.Cost);
+                return;
+            }
+        }
+    }
+
+    public bool Fire(ProjectileSpawnStrategyType type) {
+        foreach (ProjectileSpawner projectileSpawner in _projectileSpawners[type]) {
+            projectileSpawner.Fire();
+        }
+        return _projectileSpawners[type].Count > 0;
+    }
+}
+```
+
+The class stores references to all `ProjectileSpawner` instances in a dictionary keyed by their `ProjectileSpawnStrategyType` which internally contains a reference to the spawn point `Transform` and `ProjectileSpawnStrategy` to use when its `Fire()` method is called:
+```cs
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+[Serializable]
+public class ProjectileSpawner {
+
+    [SerializeField] private ProjectileSpawnStrategy _spawnStrategy;
+    [SerializeField] private Transform _firePoint;
+
+    public ProjectileSpawnStrategy Strategy { get => _spawnStrategy; }
+
+    public ProjectileSpawner(ProjectileSpawnStrategy spawnStrategy, Transform firePoint) {
+        _spawnStrategy = spawnStrategy;
+        _firePoint = firePoint;
+    }
+
+    public void Fire() {
+        _spawnStrategy.Fire(_firePoint);
+    }
+}
+```
+
+## Sound
+Sound effects are implemented through the use of a `SFXEmitter` class that is attached as a component to `GameObjects`, the sound effects used by the emitter are then specified using an enum array in the editor where the `SoundManager` instance in the `Globals` singleton then provides all the necessary `AudioClip` instances in the `Start()` lifetime of the `SFXEmitter`:
+```cs
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+using UnityEngine;
+
+using Utilities;
+
+public class SFXEmitter : MonoBehaviour {
+    [SerializeField] private Dictionary<SoundEffectType, AudioSource> _sources;
+    [SerializeField] private SoundEffectType[] _effects;
+    const float PITCH_BEND_AMOUNT = 10f;
+
+    private void Start() {
+        _sources = new Dictionary<SoundEffectType, AudioSource>();
+        foreach (SoundEffectType type in _effects) {
+            AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+            _sources.Add(type, audioSource);
+            audioSource.outputAudioMixerGroup = Globals.Instance.SoundManager.SFX;
+            audioSource.clip = Globals.Instance.SoundManager.GetClip(type);
+        }
+    }
+
+    public void Play(SoundEffectType soundEffect) {
+        if (_sources.ContainsKey(soundEffect)) {
+            _sources[soundEffect].Play();
+        }
+    }
+
+    public void Play(SoundEffectType soundEffect, float pitchRandomisation) {
+        if (_sources[soundEffect].clip == null) {
+            _sources[soundEffect].pitch += pitchRandomisation / PITCH_BEND_AMOUNT;
+            _sources[soundEffect].Play();
+            StartCoroutine(ResetClip(soundEffect));
+        }
+    }
+
+    private IEnumerator ResetClip(SoundEffectType soundEffect) {
+        while (_sources[soundEffect].isPlaying) {
+            yield return Yielders.WaitForSeconds(0.1f);
+        }
+        _sources[soundEffect].pitch = 1;
+    }
+}
+```

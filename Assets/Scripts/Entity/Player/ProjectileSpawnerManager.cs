@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileSpawnerManager : MonoBehaviour {
@@ -20,9 +19,10 @@ public class ProjectileSpawnerManager : MonoBehaviour {
     }
 
     private void InitSockets<T>(ProjectileSpawnStrategyType strategyType) where T : Component {
-        Transform socketRoot = FindAnyObjectByType<T>().transform;
+        Transform socketRoot = FindAnyObjectByType<T>().OrNull()?.transform ?? null;
         if (socketRoot == null) { 
             Debug.LogWarning("Could not find socket of type: " + typeof(T));
+            return;
         }
         List<Transform> sockets = new List<Transform>();
         for (int i = 0; i < socketRoot.childCount; i++) {

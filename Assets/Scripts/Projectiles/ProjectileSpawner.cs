@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// TODO: Probably only want one strategy per point
 [Serializable]
 public class ProjectileSpawner {
 
