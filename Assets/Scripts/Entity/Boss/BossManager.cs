@@ -13,6 +13,7 @@ namespace Boss {
         private BossSpawner _spawner;
         [SerializeField] private GameObject _bossPrefab;
         [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private BossAttack[] _attacks;
 
         public bool IsFinished => _spawnCount == _maxSpawnCount;
 
@@ -20,7 +21,7 @@ namespace Boss {
 
         private void Start() {
             _spawnTimer.Start();
-            _spawner = new BossSpawner(_bossPrefab);
+            _spawner = new BossSpawner(_bossPrefab, _attacks);
             _spawnPoint = GetComponentInChildren<BossSpawnPoint>().transform;
         }
 

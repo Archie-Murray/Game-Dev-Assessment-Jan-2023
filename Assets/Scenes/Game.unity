@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bossPrefab: {fileID: 4584783608398103413, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
   _spawnPoint: {fileID: 0}
+  _attacks: []
 --- !u!4 &106409707
 Transform:
   m_ObjectHideFlags: 0
@@ -280,7 +281,7 @@ Transform:
   m_Children:
   - {fileID: 1199861739}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &116661934
 GameObject:
@@ -717,7 +718,7 @@ Transform:
   m_Children:
   - {fileID: 1018762766}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &174746619
 MonoBehaviour:
@@ -746,7 +747,7 @@ GameObject:
   - component: {fileID: 189946107}
   - component: {fileID: 189946106}
   m_Layer: 3
-  m_Name: Wall (1)
+  m_Name: Wall Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,7 +1756,7 @@ GameObject:
   - component: {fileID: 313174625}
   - component: {fileID: 313174624}
   m_Layer: 3
-  m_Name: Wall (2)
+  m_Name: Wall Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5003,7 +5004,7 @@ GameObject:
   - component: {fileID: 1185362827}
   - component: {fileID: 1185362826}
   m_Layer: 3
-  m_Name: Wall (3)
+  m_Name: Wall Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5819,7 +5820,7 @@ RectTransform:
   - {fileID: 137873950}
   - {fileID: 1099509437}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6132,7 +6133,7 @@ RectTransform:
   - {fileID: 673617736}
   - {fileID: 2119414815}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7441,83 +7442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f22154d546da3641b0cf08ad845bf7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1716507067
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1236088731303210350, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: _maxHealth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.036
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.381
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.06434909
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3325718537886080924, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4584783608398103413, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: m_Name
-      value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 4685924387633962151, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: _bossAttacks.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4685924387633962151, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: _bossAttacks.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: d41835e4d19126b3cb6b875e58a6295b, type: 2}
-    - target: {fileID: 4685924387633962151, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
-      propertyPath: _bossAttacks.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 72285ce755821a65fbc832950991bca6, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 920ac16b89730d241a1ecd2935292933, type: 3}
 --- !u!1 &1719085529
 GameObject:
   m_ObjectHideFlags: 0
@@ -7978,6 +7902,7 @@ MonoBehaviour:
   InMenu: 0
   _bossSpawner:
     _bossPrefab: {fileID: 0}
+    _attacks: []
   _winScreen: {fileID: 673617739}
   _loseScreen: {fileID: 2119414818}
   _tickSystem: {fileID: 0}
@@ -7996,7 +7921,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1804625720
 MonoBehaviour:
@@ -8060,7 +7985,7 @@ GameObject:
   - component: {fileID: 1835962868}
   - component: {fileID: 1835962867}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13732,7 +13657,7 @@ GameObject:
   - component: {fileID: 2141616248}
   - component: {fileID: 2141616247}
   m_Layer: 3
-  m_Name: Wall (4)
+  m_Name: Wall Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

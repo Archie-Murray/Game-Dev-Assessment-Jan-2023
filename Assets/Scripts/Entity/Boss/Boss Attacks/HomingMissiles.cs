@@ -3,6 +3,7 @@ using ProjectileComponents;
 using UnityEngine;
 
 namespace Boss {
+    [CreateAssetMenu(menuName = "Boss Attack/Homing Missile")]
     public class HomingMissile : BossAttack {
 
         public int MissileCount;

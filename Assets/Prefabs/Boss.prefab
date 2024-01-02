@@ -53,6 +53,7 @@ MonoBehaviour:
   _health: {fileID: 0}
   _bossAttacks:
   - {fileID: 11400000, guid: d41835e4d19126b3cb6b875e58a6295b, type: 2}
+  - {fileID: 11400000, guid: 72285ce755821a65fbc832950991bca6, type: 2}
   _attackIndex: 0
   _attackTimer:
     _initialTime: 0
@@ -69,10 +70,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b0b1ec77d4b0d47a9dbaa0afc8fbc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 434.4
+  _maxHealth: 10
   _currentHealth: 0
   _renderer: {fileID: 0}
   _deathTimer: 0.25
+  _isInvulnerable: 0
+  _originalColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!195 &6666641774254858311
 NavMeshAgent:
   m_ObjectHideFlags: 0

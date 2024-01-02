@@ -13,7 +13,7 @@ namespace Boss {
         [SerializeField] private Health _health;
 
         [Header("Configuration Variables")]
-        [SerializeField] private List<BossAttack> _bossAttacks;
+        [SerializeField] private BossAttack[] _bossAttacks;
         [SerializeField] private int _attackIndex = 0;
         [SerializeField] private CountDownTimer _attackTimer;
 
@@ -30,6 +30,10 @@ namespace Boss {
             _health.OnDeath += () => Globals.Instance.AddMoney(100);
         }
 
+        public void SetAttacks(BossAttack[] attacks) {
+            _bossAttacks = attacks;
+        }
+
         private void FixedUpdate() {
             _attackTimer.Update(Time.fixedDeltaTime);
             Attack();
@@ -42,7 +46,7 @@ namespace Boss {
             _bossAttacks[_attackIndex].Attack(transform);
             _attackTimer.Reset(_bossAttacks[_attackIndex].Cooldown);
             _attackTimer.Start();
-            _attackIndex = ++_attackIndex % _bossAttacks.Count;
+            _attackIndex = ++_attackIndex % _bossAttacks.Length;
         }
     }
 }
