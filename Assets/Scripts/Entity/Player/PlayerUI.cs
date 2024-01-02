@@ -14,14 +14,18 @@ public class PlayerUI : MonoBehaviour {
     [SerializeField] private float _healthBarLerp = 1f;
     [SerializeField] private float _healthBarSpeed = 1f;
     [SerializeField] private Gradient _healthBarGradient;
+    [SerializeField] private Color _enabledColour;
 
     public void Awake() {
         _health = GetComponent<Health>();
         Image[] cooldownTimers = FindFirstObjectByType<FireCooldown>().GetComponentsInChildren<Image>();
-        _lightFire = cooldownTimers[0];
-        _heavyFire = cooldownTimers[1];
-        _eliteFire = cooldownTimers[2];
-        _dashCooldown = cooldownTimers[3];
+        _lightFire = cooldownTimers[1];  // First Will be panel
+        _heavyFire = cooldownTimers[2];
+        _eliteFire = cooldownTimers[3];
+        _dashCooldown = cooldownTimers[4];
+        _lightFire.color = Color.gray;
+        _heavyFire.color = Color.gray;
+        _eliteFire.color = Color.gray;
         _healthBar = FindFirstObjectByType<PlayerHealthBar>().GetComponent<Slider>();
         _healthBarFillImage = _healthBar.GetComponentInChildren<HealthBarFill>().GetComponent<Image>();
     }
@@ -29,13 +33,13 @@ public class PlayerUI : MonoBehaviour {
     public void EnableTimer(ProjectileSpawnStrategyType type) {
         switch (type) {
             case ProjectileSpawnStrategyType.LIGHT:
-                _lightFire.color = Color.white;
+                _lightFire.color = _enabledColour;
                 break;
             case ProjectileSpawnStrategyType.HEAVY:
-                _heavyFire.color = Color.white;
+                _heavyFire.color = _enabledColour;
                 break;
             case ProjectileSpawnStrategyType.ELITE:
-                _eliteFire.color = Color.white;
+                _eliteFire.color = _enabledColour;
                 break;
             default:
                 break;
