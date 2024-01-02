@@ -7,7 +7,7 @@ public class Globals : Singleton<Globals> {
     public int Money = 0;
     public bool TutorialMode = true;
     public Camera MainCamera;
-    private MoneyReadout _moneyReadout;
+    private MoneyDisplay _moneyReadout;
     public LayerMask PlayerLayer;
     public LayerMask EnemyLayer;
     public SoundManager SoundManager;
@@ -17,7 +17,7 @@ public class Globals : Singleton<Globals> {
 
     public void Start() {
         SoundManager = new SoundManager(_effects, _audioMixer, _sfx, _bgm);
-        _moneyReadout = FindFirstObjectByType<MoneyReadout>();
+        _moneyReadout = FindFirstObjectByType<MoneyDisplay>();
     }
 
     public void AddMoney(int amount) {

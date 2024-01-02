@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour {
         _heavyFireTimer = new CountDownTimer(_heavyFireRate);
         _eliteFireTimer = new CountDownTimer(_specialFireRate);
         _playerUI = GetComponent<PlayerUI>();
-        _playerUI.UpdateFireCooldowns(1f, 1f, 1f);
         _dashTimer = new CountDownTimer(_dashCooldown);
         _dashTimer.Start();
     }

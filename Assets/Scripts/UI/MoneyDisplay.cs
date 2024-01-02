@@ -7,7 +7,7 @@ using UnityEngine;
 
 using Utilities;
 
-public class MoneyReadout : MonoBehaviour {
+public class MoneyDisplay : MonoBehaviour {
     [SerializeField] private float _updateInterval = 0.1f;
     [SerializeField] private int _displayMoney;
     [SerializeField] private TMP_Text _readout;
@@ -22,7 +22,7 @@ public class MoneyReadout : MonoBehaviour {
     }
 
     public void UpdateMoney(int newValue) {
-        if (_moneyTick != null) {
+        if (_moneyTick == null) {
             _moneyTick = StartCoroutine(TickMoney(newValue));
         } else {
             StopCoroutine(_moneyTick);

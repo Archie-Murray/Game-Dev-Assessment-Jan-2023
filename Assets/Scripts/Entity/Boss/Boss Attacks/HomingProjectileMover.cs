@@ -9,12 +9,10 @@ namespace Boss {
         private Transform _target;
         private float _rotationSpeed = 5f;
         private NavMeshAgent _agent;
-        private Rigidbody2D _rb2D;
 
         private Vector3 UnitVectorToTarget => _target ? (_target.position - transform.position).normalized : transform.up;
 
         private void Awake() {
-            _rb2D = GetComponent<Rigidbody2D>();
             _agent = GetComponent<NavMeshAgent>();
             _agent.updateUpAxis = false;
             _agent.updateRotation = false;
