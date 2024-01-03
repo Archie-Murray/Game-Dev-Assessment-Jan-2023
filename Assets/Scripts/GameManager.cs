@@ -20,6 +20,8 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField] private TickSystem _tickSystem;
     [SerializeField] private EnemyManager[] _enemyManagers = null;
     [SerializeField] private BossManager _bossManager = null;
+    [SerializeField] private CountDownTimer _combatTimer = new CountDownTimer(0f);
+    [SerializeField] private BGMEmitter _bgmEmitter;
     private Coroutine _endGameState = null;
 
     private void Start() {
@@ -27,9 +29,13 @@ public class GameManager : Singleton<GameManager> {
         _bossManager = FindFirstObjectByType<BossManager>();
         _tickSystem = GetComponent<TickSystem>();
         _tickSystem.TickLoop += HandleEndGame;
+        _bgmEmitter = GetComponent<BGMEmitter>();
         foreach (EnemyManager enemyManager in _enemyManagers) {
             enemyManager.OnSpawnFinish += CheckBossCanSpawn;
         }
+        _combatTimer.OnTimerStart += () => _bgmEmitter.PlayBGM(BGMType.COMBAT);
+        _combatTimer.OnTimerStop += () => _bgmEmitter.PlayBGM(BGMType.PASSIVE);
+        _bgmEmitter.PlayBGM(BGMType.PASSIVE);
     }
 
     public bool GameEnd => BossDead && SpawnersFinished;
@@ -84,5 +90,9 @@ public class GameManager : Singleton<GameManager> {
     
     public void MainMenu() {
         SceneManager.LoadScene(0);
+    }
+
+    public void ResetCombatTimer() {
+        _combatTimer.Reset(5f);
     }
 }

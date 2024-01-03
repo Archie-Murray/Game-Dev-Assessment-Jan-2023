@@ -53,6 +53,7 @@ namespace Enemy {
                 Debug.LogError("State was not initialised!");
             }
             _state?.Start();
+            GetComponent<Health>().OnDamage += (float amount) => GameManager.Instance.ResetCombatTimer();
         }
 
         public void Update() {

@@ -37,7 +37,8 @@ public class InputHandler : MonoBehaviour {
         _inputActions.PlayerControls.HeavyFire.started += HeavyFireHandle;
         _inputActions.PlayerControls.HeavyFire.canceled += HeavyFireHandle;
         _inputActions.PlayerControls.SpecialFire.started += MagicFireHandle;
-        _inputActions.PlayerControls.SpecialFire.canceled += MagicFireHandle; 
+        _inputActions.PlayerControls.SpecialFire.canceled += MagicFireHandle;
+        //_inputActions.Enable();
     }
 
     private void LookHandle(InputAction.CallbackContext context) => MousePosition = context.ReadValue<Vector2>();

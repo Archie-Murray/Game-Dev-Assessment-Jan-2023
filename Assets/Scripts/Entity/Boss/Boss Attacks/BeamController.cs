@@ -22,6 +22,7 @@ namespace Boss {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _size = new Vector2(_spriteRenderer.sprite.bounds.size.x * transform.localScale.x, _spriteRenderer.sprite.bounds.size.y * transform.localScale.y);
             _offsetMagnitude = _size.magnitude / 2f;
+            GetComponent<Health>().OnDamage += (float amount) => GameManager.Instance.ResetCombatTimer();
         }
 
         private void FixedUpdate() {

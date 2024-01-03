@@ -60,9 +60,12 @@ namespace Utilities {
 
         public bool IsFinished => _time == 0f;
         public void Reset() => _time = _initialTime;
-        public void Reset(float newTime) {
+        public void Reset(float newTime, bool fireEvents = false) {
             _initialTime = newTime;
             Reset();
+            if (fireEvents) {
+                OnTimerStart.Invoke();
+            }
         }
     }
 
