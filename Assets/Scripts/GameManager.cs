@@ -29,13 +29,13 @@ public class GameManager : Singleton<GameManager> {
         _bossManager = FindFirstObjectByType<BossManager>();
         _tickSystem = GetComponent<TickSystem>();
         _tickSystem.TickLoop += HandleEndGame;
+        _tickSystem.TickLoop += (float deltaTime) => _combatTimer.Update(deltaTime);
         _bgmEmitter = GetComponent<BGMEmitter>();
         foreach (EnemyManager enemyManager in _enemyManagers) {
             enemyManager.OnSpawnFinish += CheckBossCanSpawn;
         }
         _combatTimer.OnTimerStart += () => _bgmEmitter.PlayBGM(BGMType.COMBAT);
         _combatTimer.OnTimerStop += () => _bgmEmitter.PlayBGM(BGMType.PASSIVE);
-        _bgmEmitter.PlayBGM(BGMType.PASSIVE);
     }
 
     public bool GameEnd => BossDead && SpawnersFinished;
@@ -94,5 +94,6 @@ public class GameManager : Singleton<GameManager> {
 
     public void ResetCombatTimer() {
         _combatTimer.Reset(5f);
+        _combatTimer.Start();
     }
 }

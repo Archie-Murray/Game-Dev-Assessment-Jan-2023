@@ -762,7 +762,7 @@ Transform:
   m_GameObject: {fileID: 189946104}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 51, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 2, z: 1}
+  m_LocalScale: {x: 104, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1835962868}
@@ -1699,19 +1699,19 @@ MonoBehaviour:
     BGM: {fileID: -87496336615929372, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
     SFX: {fileID: -2673949998842433126, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
   _effects:
-  - Clip: {fileID: 8300000, guid: fce28e1bd1545c7418769e45b6f9fc24, type: 3}
+  - Clip: {fileID: 8300000, guid: 1f858dcabbc895649b826ebba7239fff, type: 3}
     Type: 1
     Name: HIT
-  - Clip: {fileID: 8300000, guid: fce28e1bd1545c7418769e45b6f9fc24, type: 3}
+  - Clip: {fileID: 8300000, guid: 10b78b14927123a47be1d08ee17ef6e3, type: 3}
     Type: 5
     Name: DESTROY
-  - Clip: {fileID: 8300000, guid: 08780b7ed987c0d40b3eb8ba5ef2f22a, type: 3}
+  - Clip: {fileID: 8300000, guid: 7a1e6243cf8578c47bfdfa94da89c83d, type: 3}
     Type: 2
     Name: SHOOT
-  - Clip: {fileID: 8300000, guid: 08780b7ed987c0d40b3eb8ba5ef2f22a, type: 3}
+  - Clip: {fileID: 8300000, guid: 466cf56d090df6b4dbd0d201aaa55803, type: 3}
     Type: 3
     Name: HEAVY_SHOOT
-  - Clip: {fileID: 8300000, guid: 08780b7ed987c0d40b3eb8ba5ef2f22a, type: 3}
+  - Clip: {fileID: 8300000, guid: 6839a2d9b79b0e6478a7100ebd10a8bd, type: 3}
     Type: 4
     Name: ELITE_SHOOT
   _audioMixer: {fileID: 24100000, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
@@ -1803,7 +1803,7 @@ Transform:
   m_GameObject: {fileID: 313174622}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -51, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 2, z: 1}
+  m_LocalScale: {x: 104, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1835962868}
@@ -4735,7 +4735,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: a994e09e20e6579488d54fbfc4f7fb2c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4757,7 +4757,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7780,7 +7780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1798761820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7986,14 +7986,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bgmList:
-  - Type: 0
-    Clip: {fileID: 8300000, guid: 08780b7ed987c0d40b3eb8ba5ef2f22a, type: 3}
-  - Type: 1
-    Clip: {fileID: 8300000, guid: fce28e1bd1545c7418769e45b6f9fc24, type: 3}
   - Type: 2
-    Clip: {fileID: 8300000, guid: 08780b7ed987c0d40b3eb8ba5ef2f22a, type: 3}
+    Clip: {fileID: 8300000, guid: 4809ff6cb34d5694ea6969f57a945296, type: 3}
+  - Type: 3
+    Clip: {fileID: 8300000, guid: 1e9644a803964e2418dffb21d11aad3d, type: 3}
   _currentlyPlaying: 0
   _target: 0
+  _initialBGM: 2
+  _mixerBGM: {fileID: -87496336615929372, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
 --- !u!1 &1816621916
 GameObject:
   m_ObjectHideFlags: 0
@@ -8092,10 +8092,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 50, y: 50}
-      - {x: -50, y: 50}
-      - {x: -50, y: -50}
-      - {x: 50, y: -50}
+    - - {x: 51, y: 51}
+      - {x: -51, y: 51}
+      - {x: -51, y: -51}
+      - {x: 51, y: -51}
   m_UseDelaunayMesh: 0
 --- !u!4 &1835962868
 Transform:
