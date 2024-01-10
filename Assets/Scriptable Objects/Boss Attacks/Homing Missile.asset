@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Homing Missile
   m_EditorClassIdentifier: 
   Cooldown: 1
+  AbilitySoundEffect: 7
   MissileCount: 5
   MissileDuration: 5
   MissileSpeed: 5

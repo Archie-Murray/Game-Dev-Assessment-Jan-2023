@@ -7,5 +7,4 @@ using UnityEngine;
 [Serializable] public class SoundEffect {
     public AudioClip Clip;
     public SoundEffectType Type;
-    public string Name;
 }

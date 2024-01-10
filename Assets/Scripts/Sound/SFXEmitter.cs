@@ -22,6 +22,9 @@ public class SFXEmitter : MonoBehaviour {
     }
 
     public void Play(SoundEffectType soundEffect) {
+        if (soundEffect == SoundEffectType.NONE) {
+            return;
+        }
         if (_sources.ContainsKey(soundEffect)) {
             _sources[soundEffect].Play();
         }
@@ -39,6 +42,6 @@ public class SFXEmitter : MonoBehaviour {
         while (_sources[soundEffect].isPlaying) {
             yield return Yielders.WaitForSeconds(0.1f);
         }
-        _sources[soundEffect].pitch = 1;
+        _sources[soundEffect].pitch = 1f;
     }
 }

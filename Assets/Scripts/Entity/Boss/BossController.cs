@@ -11,6 +11,7 @@ namespace Boss {
         [Header("Component References")]
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private Health _health;
+        [SerializeField] private SFXEmitter _emitter;
 
         [Header("Configuration Variables")]
         [SerializeField] private BossAttack[] _bossAttacks;
@@ -28,6 +29,8 @@ namespace Boss {
         private void Start() {
             _health.OnDeath += () => GameManager.Instance.BossDead = true;
             _health.OnDeath += () => Globals.Instance.AddMoney(100);
+            _health.OnDamage += (float damage) => _emitter.Play(SoundEffectType.HIT);
+            _health.OnDeath += () => _emitter.Play(SoundEffectType.DESTROY);
         }
 
         public void SetAttacks(BossAttack[] attacks) {
@@ -45,6 +48,7 @@ namespace Boss {
             }
             _bossAttacks[_attackIndex].Attack(transform);
             _attackTimer.Reset(_bossAttacks[_attackIndex].Cooldown);
+            _emitter.Play(_bossAttacks[_attackIndex].AbilitySoundEffect);
             _attackTimer.Start();
             _attackIndex = ++_attackIndex % _bossAttacks.Length;
         }

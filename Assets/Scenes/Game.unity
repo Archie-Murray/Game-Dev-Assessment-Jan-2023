@@ -1701,19 +1701,18 @@ MonoBehaviour:
   _effects:
   - Clip: {fileID: 8300000, guid: 1f858dcabbc895649b826ebba7239fff, type: 3}
     Type: 1
-    Name: HIT
   - Clip: {fileID: 8300000, guid: 10b78b14927123a47be1d08ee17ef6e3, type: 3}
     Type: 5
-    Name: DESTROY
   - Clip: {fileID: 8300000, guid: 7a1e6243cf8578c47bfdfa94da89c83d, type: 3}
     Type: 2
-    Name: SHOOT
   - Clip: {fileID: 8300000, guid: 466cf56d090df6b4dbd0d201aaa55803, type: 3}
     Type: 3
-    Name: HEAVY_SHOOT
   - Clip: {fileID: 8300000, guid: 6839a2d9b79b0e6478a7100ebd10a8bd, type: 3}
     Type: 4
-    Name: ELITE_SHOOT
+  - Clip: {fileID: 8300000, guid: e234c70f0a84eb7449b1d655353955a7, type: 3}
+    Type: 6
+  - Clip: {fileID: 8300000, guid: b488f0963c8e3fa458c40374ef78082e, type: 3}
+    Type: 7
   _audioMixer: {fileID: 24100000, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
   _sfx: {fileID: -2673949998842433126, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}
   _bgm: {fileID: -87496336615929372, guid: a942da1021c7b5449a2e80bfbae012b8, type: 2}

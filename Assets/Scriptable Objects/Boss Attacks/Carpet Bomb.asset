@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Carpet Bomb
   m_EditorClassIdentifier: 
   Cooldown: 3
+  AbilitySoundEffect: 7
   Points: 3
   Damage: 5
   Speed: 5
