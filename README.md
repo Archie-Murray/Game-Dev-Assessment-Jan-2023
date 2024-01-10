@@ -9,3 +9,5 @@
 - SFX (Elite): https://opengameart.org/content/sci-fi-laser-fire-sfx
 - SFX (Death): https://opengameart.org/content/50-cc0-sci-fi-sfx (Explosion 01)
 - SFX (Enemy Shoot): https://opengameart.org/content/laser-fire-0
+- SFX (Boss Projectile): https://opengameart.org/content/50-cc0-sci-fi-sfx (Misc 03)
+- SFX (Boss Beam): https://opengameart.org/content/50-cc0-sci-fi-sfx (Ambient Loop 01)
