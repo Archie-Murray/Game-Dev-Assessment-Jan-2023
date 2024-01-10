@@ -2,9 +2,10 @@
 - UI Assets: https://opengameart.org/content/assets-ui-minimalism-scifi
 - UI Icons: https://opengameart.org/content/icons-weapon-properties (used as a base for some)
 - BGM (Combat): https://opengameart.org/content/space-marines
-- BGM (Passive): 
-- BGM (Main Menu):
-- SFX (Light):
-- SFX (Heavy):
-- SFX (Elite):
-- SFX (Death):
+- BGM (Passive): https://opengameart.org/content/ambience-pack-1-sci-fi-horror (The Surreal Truth)
+- BGM (Main Menu): https://opengameart.org/content/pioneers-meets-space
+- SFX (Light): https://opengameart.org/content/50-cc0-sci-fi-sfx (Shoot 01)
+- SFX (Heavy): https://opengameart.org/content/laser-weapon-burst-fire
+- SFX (Elite): https://opengameart.org/content/sci-fi-laser-fire-sfx
+- SFX (Death): https://opengameart.org/content/50-cc0-sci-fi-sfx (Explosion 01)
+- SFX (Enemy Shoot): https://opengameart.org/content/laser-fire-0
