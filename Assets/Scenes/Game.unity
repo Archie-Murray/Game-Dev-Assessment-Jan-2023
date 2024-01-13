@@ -1712,6 +1712,8 @@ MonoBehaviour:
     Type: 3
   - Clip: {fileID: 8300000, guid: 6839a2d9b79b0e6478a7100ebd10a8bd, type: 3}
     Type: 4
+  - Clip: {fileID: 8300000, guid: 50f5e15d600a5ee4b97e3b82efa461af, type: 3}
+    Type: 5
   - Clip: {fileID: 8300000, guid: e234c70f0a84eb7449b1d655353955a7, type: 3}
     Type: 6
   - Clip: {fileID: 8300000, guid: b488f0963c8e3fa458c40374ef78082e, type: 3}
@@ -8068,6 +8070,8 @@ MonoBehaviour:
   _cameraNoise: {fileID: 0}
   _virtualCamera: {fileID: 0}
   _bgmEmitter: {fileID: 0}
+  _postProcessVolume: {fileID: 0}
+  _chromaticAberration: {fileID: 0}
 --- !u!4 &1804625719
 Transform:
   m_ObjectHideFlags: 0
