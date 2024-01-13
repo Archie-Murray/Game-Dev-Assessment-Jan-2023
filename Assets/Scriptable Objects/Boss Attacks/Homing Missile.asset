@@ -18,4 +18,4 @@ MonoBehaviour:
   MissileDuration: 5
   MissileSpeed: 5
   MissileDamage: 2
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 1856523593294180473, guid: 099433ca92e358c4587635bbbf1150d7, type: 3}

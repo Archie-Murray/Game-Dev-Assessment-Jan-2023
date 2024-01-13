@@ -12,6 +12,7 @@ namespace Enemy {
         [Header("Component References")]
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private EnemyManager _enemyManager;
+        [SerializeField] private SFXEmitter _emitter;
 
         [Header("Enemy Parameters")]
         [SerializeField] private float _maxSpeed = 200f;
@@ -30,6 +31,7 @@ namespace Enemy {
         public EnemyState State { get { return _state; } set { _state = value; } }
         public NavMeshAgent Agent { get { return _agent; } }
         public CountDownTimer AttackTimer { get { return _attackTimer; } }
+        public SFXEmitter Emitter { get { return _emitter; } }
         public float Damage => _damage;
         public bool InChaseRange => HasTarget && Vector3.Distance(_enemyManager.Target.OrNull()?.position ?? new Vector3(Mathf.Infinity, Mathf.Infinity), transform.position) <= _chaseRange;
         public bool InAttackRange => HasTarget && Vector3.Distance(_enemyManager.Target.OrNull()?.position ?? new Vector3(Mathf.Infinity, Mathf.Infinity), transform.position) <= _attackRange;
@@ -43,6 +45,7 @@ namespace Enemy {
             _agent.updateRotation = false;
             _agent.stoppingDistance = _attackRange - 0.5f;
             _enemyManager = transform.parent.GetComponent<EnemyManager>();
+            _emitter = GetComponent<SFXEmitter>();
             _attackTimer = new CountDownTimer(_fireRate);
         }
 
@@ -53,7 +56,11 @@ namespace Enemy {
                 Debug.LogError("State was not initialised!");
             }
             _state?.Start();
-            GetComponent<Health>().OnDamage += (float amount) => GameManager.Instance.ResetCombatTimer();
+            Health health = GetComponent<Health>();
+            health.OnDamage += (float amount) => GameManager.Instance.ResetCombatTimer();
+            health.OnDamage += (float damage) => GameManager.Instance.CameraShake(intensity: damage);
+            health.OnDamage += (float damage) => _emitter.Play(SoundEffectType.HIT);
+            health.OnDeath += () => _emitter.Play(SoundEffectType.DESTROY);
         }
 
         public void Update() {

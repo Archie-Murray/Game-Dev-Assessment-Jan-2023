@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour {
         _health.OnDamage += (float amount) => _emitter.Play(SoundEffectType.HIT, amount);
         _health.OnDeath += () => { _emitter.Play(SoundEffectType.DESTROY); GameManager.Instance.PlayerAlive = false; };
         _health.OnDamage += (float amount) => GameManager.Instance.ResetCombatTimer();
+        _health.OnDamage += (float amount) => GameManager.Instance.CameraShake(intensity: amount);
     }
 
     public void AddSpawnStrategy(ProjectileSpawnStrategy spawnStrategy) {
@@ -130,6 +131,8 @@ public class PlayerController : MonoBehaviour {
         if (_dashPressed) {
             _dashPressed = false;
             _rb2D.AddForce(transform.up * _dashForce, ForceMode2D.Impulse);
+            GameManager.Instance.CameraPan(_dashForce * 0.1f, _dashCooldown);
+            GameManager.Instance.CameraAberration(0.25f, _dashCooldown);
             _dashTimer.Reset();
             _dashTimer.Start();
         }

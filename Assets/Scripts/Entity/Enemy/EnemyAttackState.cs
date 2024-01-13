@@ -19,6 +19,7 @@ namespace Enemy {
         }
 
         private void CreateMissile() {
+            _controller.Emitter.Play(SoundEffectType.ENEMY_SHOOT);
             GameObject projectile = GameObject.Instantiate(_enemyManager.EnemyProjectile, _controller.transform.position + (2f * _controller.transform.up), _controller.transform.rotation);
             if (_controller) {
                 _spriteRenderer.FlashColour(Color.magenta, 0.5f, _controller);

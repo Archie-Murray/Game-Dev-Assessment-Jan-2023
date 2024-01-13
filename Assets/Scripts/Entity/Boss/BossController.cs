@@ -30,6 +30,7 @@ namespace Boss {
             _health.OnDeath += () => Globals.Instance.AddMoney(100);
             _health.OnDamage += (float damage) => _emitter.Play(SoundEffectType.HIT);
             _health.OnDamage += (float damage) => GameManager.Instance.ResetCombatTimer();
+            _health.OnDamage += (float damage) => GameManager.Instance.CameraShake(intensity: damage);
             _health.OnDeath += () => _emitter.Play(SoundEffectType.DESTROY);
             _attackTimer = new CountDownTimer(_bossAttacks[0].OrNull()?.Cooldown ?? 2f);
             _attackTimer.Start();

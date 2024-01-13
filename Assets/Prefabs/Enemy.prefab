@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3729202204934337463}
   - component: {fileID: 4005158896586810229}
   - component: {fileID: 5423411686623278519}
+  - component: {fileID: -7543164828388840562}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -125,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 0}
   _enemyManager: {fileID: 0}
+  _emitter: {fileID: 0}
   _maxSpeed: 200
   _maxAcceleration: 60
   _maxTurnSpeed: 5
@@ -213,3 +215,18 @@ MonoBehaviour:
   _currentHealth: 0
   _renderer: {fileID: 0}
   _deathTimer: 0.25
+  _isInvulnerable: 0
+  _originalColour: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &-7543164828388840562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2949124724352358098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf0e57e309bedb47b03dade6e82a25b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effects: 010000000600000005000000
