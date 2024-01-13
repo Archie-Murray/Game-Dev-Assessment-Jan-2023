@@ -31,7 +31,7 @@ public class ProjectileSpawnerManager : MonoBehaviour {
         _sockets.Add(strategyType, sockets.ToArray());
     }
 
-    public void TryAddSpawner(ProjectileSpawnStrategy spawnStrategy) {
+    public void TryAddSpawner(ProjectileSpawnStrategy spawnStrategy, bool overrideCost = false) {
         _sockets.TryGetValue(spawnStrategy.Type, out Transform[] sockets);
         if (sockets == null) {
             Debug.LogWarning("Could not find sockets for type: " + spawnStrategy.Type);
@@ -43,7 +43,9 @@ public class ProjectileSpawnerManager : MonoBehaviour {
                 firePoint.transform.parent = socket;
                 firePoint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                 _projectileSpawners[spawnStrategy.Type].Add(new ProjectileSpawner(spawnStrategy, firePoint.transform));
-                Globals.Instance.AddMoney(-spawnStrategy.Cost);
+                if (!overrideCost) {
+                    Globals.Instance.AddMoney(-spawnStrategy.Cost);
+                }
                 return;
             }
         }

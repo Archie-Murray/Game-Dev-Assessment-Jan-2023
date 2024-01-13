@@ -14,6 +14,7 @@ public class InputHandler : MonoBehaviour {
     public bool EliteFireInput;
 
     private Controls _inputActions;
+    public Controls InputActions => _inputActions;
 
     public void Awake() {
         _inputActions = new Controls();

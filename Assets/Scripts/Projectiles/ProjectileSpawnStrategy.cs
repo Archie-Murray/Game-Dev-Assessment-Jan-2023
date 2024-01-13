@@ -11,7 +11,7 @@ public abstract class ProjectileSpawnStrategy : ScriptableObject {
 
     public abstract void Fire(Transform origin);
 
-    public static string Display(Type type) {
-        return type.Name.Replace("SpawnStrategy", "");
+    public string Display() {
+        return $"{Cost}: {GetType().Name.Replace("SpawnStrategy", "")}";
     }
 }

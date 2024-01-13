@@ -35,6 +35,10 @@ public class SettingsManager : MonoBehaviour {
         _inMainMenu = SceneManager.GetActiveScene().buildIndex == 0;
         if (!_inMainMenu) {
             GetComponent<UIMover>().OnCloseFinish += Save;
+            if (_currentSettings.TutorialMode) {
+                GameManager.Instance.StartTutorial();
+                Debug.Log("Started tutorial mode");
+            }
         }
     }
 
@@ -66,6 +70,14 @@ public class SettingsManager : MonoBehaviour {
         }
     }
 
+    public void SaveMainMenu() {
+        if (_saveCoroutine != null) {
+            StopCoroutine(_saveCoroutine);
+            _saveCoroutine = null;
+        }
+        _saveCoroutine = StartCoroutine(SaveToMainMenu());
+    }
+
     private float VolumeRemap(float value) {
         return 20f * Mathf.Log10(value);
     }
@@ -82,11 +94,22 @@ public class SettingsManager : MonoBehaviour {
         _saveCoroutine = StartCoroutine(SaveData());
     }
 
+    private IEnumerator SaveToMainMenu() {
+        string json = JsonUtility.ToJson(_currentSettings, true);
+        yield return Yielders.WaitForFixedUpdate;
+        File.WriteAllText(_filePath, json);
+        _saveCoroutine = null;
+        Debug.Log("Finished saving");
+        yield return Yielders.WaitForEndOfFrame;
+        GameManager.Instance.MainMenu();
+    }
+
     private IEnumerator SaveData() {
         string json = JsonUtility.ToJson(_currentSettings, true);
         yield return Yielders.WaitForFixedUpdate;
         File.WriteAllText(_filePath, json);
         _saveCoroutine = null;
+        Debug.Log("Finished saving");
     }
 
     public void LoadSettings() {

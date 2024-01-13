@@ -69,9 +69,9 @@ public class PlayerController : MonoBehaviour {
         _health.OnDamage += (float amount) => GameManager.Instance.CameraShake(intensity: amount);
     }
 
-    public void AddSpawnStrategy(ProjectileSpawnStrategy spawnStrategy) {
+    public void AddSpawnStrategy(ProjectileSpawnStrategy spawnStrategy, bool overrideCost = false) {
         _playerUI.EnableTimer(spawnStrategy.Type);
-        _projectileSpawnerManager.TryAddSpawner(spawnStrategy);
+        _projectileSpawnerManager.TryAddSpawner(spawnStrategy, overrideCost);
     }
 
     private void Update() {

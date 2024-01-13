@@ -12,6 +12,7 @@ using Utilities;
 using Cinemachine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using System;
 
 public class GameManager : Singleton<GameManager> {
     public bool BossDead = false;
@@ -29,6 +30,7 @@ public class GameManager : Singleton<GameManager> {
     [SerializeField] private BGMEmitter _bgmEmitter;
     [SerializeField] private Volume _postProcessVolume;
     [SerializeField] private ChromaticAberration _chromaticAberration;
+    [SerializeField] private GameObject _tutorialManager;
     private float _initialCameraSize;
     private Coroutine _endGameState = null;
 
@@ -172,5 +174,9 @@ public class GameManager : Singleton<GameManager> {
     public void ResetCombatTimer() {
         _combatTimer.Reset(5f);
         _combatTimer.Start();
+    }
+
+    public void StartTutorial() {
+        Instantiate(_tutorialManager, Vector3.zero, Quaternion.identity);
     }
 }

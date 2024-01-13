@@ -11,6 +11,7 @@ public class Globals : Singleton<Globals> {
     public LayerMask PlayerLayer;
     public LayerMask EnemyLayer;
     public SoundManager SoundManager;
+    public SettingsManager SettingsManager;
     [SerializeField] private SoundEffect[] _effects;
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioMixerGroup _sfx, _bgm;
@@ -18,6 +19,7 @@ public class Globals : Singleton<Globals> {
     public void Start() {
         SoundManager = new SoundManager(_effects, _audioMixer, _sfx, _bgm);
         _moneyReadout = FindFirstObjectByType<MoneyDisplay>();
+        SettingsManager = FindFirstObjectByType<SettingsManager>();
     }
 
     public void AddMoney(int amount) {

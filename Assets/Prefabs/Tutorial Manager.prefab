@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1532522679789410881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8706290524965842049}
+  - component: {fileID: 6148512396914083498}
+  m_Layer: 0
+  m_Name: Tutorial Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8706290524965842049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532522679789410881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6148512396914083498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532522679789410881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49af7e87fc8158145a5b6ff340949973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorials:
+  - {fileID: 11400000, guid: fc1d6830fb1f62e4fb97ab32ba15ea64, type: 2}
+  - {fileID: 11400000, guid: 2a06b433cd95f58498140d264bf0a2f2, type: 2}
+  - {fileID: 11400000, guid: 483b08487a2312848b3b29684ca36151, type: 2}
+  - {fileID: 11400000, guid: c60b24058469ba4458035c634f0c5d91, type: 2}
+  - {fileID: 11400000, guid: b65a66979e5220549bd2569324e4c3b8, type: 2}
+  - {fileID: 11400000, guid: fe4ff75b2ea8e844097fb65bca7f7882, type: 2}
+  _tutorialPrefab: {fileID: 2743391577838666864, guid: 906f6503a9401704096100ee5aac6177, type: 3}
+  _canvas: {fileID: 0}

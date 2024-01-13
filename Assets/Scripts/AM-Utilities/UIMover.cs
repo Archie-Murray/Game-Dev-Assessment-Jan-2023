@@ -14,6 +14,7 @@ public class UIMover : MonoBehaviour {
     [SerializeField] private Vector2 _moveDir = Vector2.up;
     [SerializeField] private Vector2 _offset;
     [SerializeField] private bool _openByDefault = false;
+    [SerializeField] private bool _hasInvokedMoveFinish = false;
 
     public Action OnCloseStart;
     public Action OnCloseFinish;
@@ -44,16 +45,19 @@ public class UIMover : MonoBehaviour {
     private Vector2 ClosedPos => _rootAnchor.anchoredPosition + Offset;
 
     private void FixedUpdate() {
-        if (Vector3.Distance(_root.anchoredPosition, _targetPos) <= 0.01f) {
+        if (Vector3.Distance(_root.anchoredPosition, _targetPos) <= 0.01f && !_hasInvokedMoveFinish) {
             if (_targetPos == ClosedPos) {
+                Debug.Log($"UI {_key} finished closing");
                 OnCloseFinish?.Invoke();
             } else {
                 OnOpenFinish?.Invoke();
             }
+            _hasInvokedMoveFinish = true;
             return;
+        } else if (Vector3.Distance(_root.anchoredPosition, _targetPos) >= 0.01f) {
+            _hasInvokedMoveFinish = false;
+            _root.anchoredPosition = Vector2.MoveTowards(_root.anchoredPosition, _targetPos, _speed * Time.fixedDeltaTime);
         }
-
-        _root.anchoredPosition = Vector2.MoveTowards(_root.anchoredPosition, _targetPos, _speed * Time.fixedDeltaTime);
     }
 
     private void Update() {
@@ -70,7 +74,7 @@ public class UIMover : MonoBehaviour {
     private void ToggleUIChildrenInteractable(bool value) {
         _rootGroup.interactable = value;
     }
-    
+
     private void ToggleUIChildrenVisible(bool value) {
         _rootGroup.alpha = value ? 1f : 0f;
     }
