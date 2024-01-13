@@ -19,18 +19,20 @@ namespace Boss {
         [SerializeField] private CountDownTimer _attackTimer;
 
         private void Awake() {
-            _attackTimer = new CountDownTimer(_bossAttacks[_attackIndex].Cooldown);
             _agent = GetComponent<NavMeshAgent>();
             _health = GetComponent<Health>();
+            _emitter = GetComponent<SFXEmitter>();
             _agent.updateUpAxis = false;
-            _attackTimer.Start();
         }
 
         private void Start() {
             _health.OnDeath += () => GameManager.Instance.BossDead = true;
             _health.OnDeath += () => Globals.Instance.AddMoney(100);
             _health.OnDamage += (float damage) => _emitter.Play(SoundEffectType.HIT);
+            _health.OnDamage += (float damage) => GameManager.Instance.ResetCombatTimer();
             _health.OnDeath += () => _emitter.Play(SoundEffectType.DESTROY);
+            _attackTimer = new CountDownTimer(_bossAttacks[0].OrNull()?.Cooldown ?? 2f);
+            _attackTimer.Start();
         }
 
         public void SetAttacks(BossAttack[] attacks) {
@@ -39,14 +41,12 @@ namespace Boss {
 
         private void FixedUpdate() {
             _attackTimer.Update(Time.fixedDeltaTime);
-            Attack();
+            if (_attackTimer.IsFinished) {
+                Attack();
+            }
         }
 
-        public void Attack() {
-            if (!_attackTimer.IsFinished) {
-                return;
-            }
-            _bossAttacks[_attackIndex].Attack(transform);
+        public void Attack() {            _bossAttacks[_attackIndex].Attack(transform);
             _attackTimer.Reset(_bossAttacks[_attackIndex].Cooldown);
             _emitter.Play(_bossAttacks[_attackIndex].AbilitySoundEffect);
             _attackTimer.Start();
