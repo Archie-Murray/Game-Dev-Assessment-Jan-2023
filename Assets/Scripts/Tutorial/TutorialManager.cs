@@ -140,7 +140,6 @@ public class TutorialManager : MonoBehaviour {
         timer.Start();
         while (timer.IsRunning) {
             text.alpha = Mathf.Lerp(initialAlpha, targetAlpha, 1f - timer.Progress);
-            Debug.Log($"Progress: {(1f - timer.Progress):0%}");
             timer.Update(Time.fixedDeltaTime);
             yield return Yielders.WaitForFixedUpdate;
         }
