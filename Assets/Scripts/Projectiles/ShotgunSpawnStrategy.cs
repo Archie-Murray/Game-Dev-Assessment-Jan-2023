@@ -4,7 +4,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Shotgun Spawn Strategy", menuName = "Projectile Spawn Strategy/Shotgun")]
 public class ShotgunSpawnStrategy : ProjectileSpawnStrategy {
-    public GameObject Projectile;
 
     public ShotgunSpawnStrategy(GameObject projectile) {
         Projectile = projectile;

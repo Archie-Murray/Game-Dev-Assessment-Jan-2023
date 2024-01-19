@@ -4,7 +4,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Linear Spawn Strategy", menuName = "Projectile Spawn Strategy/Linear")]
 public class LinearSpawnStrategy : ProjectileSpawnStrategy {
-    public GameObject Projectile;
     public float OffsetMagnitude = 2f;
     public override void Fire(Transform origin) {
         float rotation = Vector2.SignedAngle(origin.up, Vector2.up);

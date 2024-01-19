@@ -994,6 +994,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c93b4570e6a1be248b9e54c8edadc32d, type: 2}
   - {fileID: 11400000, guid: c32199491be2c6742ad0a1aa1302485c, type: 2}
   - {fileID: 11400000, guid: ff725b7134f48784bb1dd512f09f3dd7, type: 2}
+  - {fileID: 11400000, guid: 957c4872d56122c4baff8804a5636db1, type: 2}
+  - {fileID: 11400000, guid: 45c6ae07fa9d07945aeba58f4cce5458, type: 2}
   _playerController: {fileID: 0}
   _buttonPrefab: {fileID: 8872444491741039299, guid: fefd7e877c5774d4b90026d3d241e1e2, type: 3}
 --- !u!114 &201387736
@@ -1440,7 +1442,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1369385635
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0, g: 0.93807817, b: 1, a: 1}
   m_FlipX: 0
@@ -5496,7 +5498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -119.609985, y: 50}
+  m_AnchoredPosition: {x: -119.60986, y: 50}
   m_SizeDelta: {x: 239.21, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207964426
@@ -6519,7 +6521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -65.9, y: -0.0000009534406}
+  m_AnchoredPosition: {x: -65.899994, y: -0.0000009534406}
   m_SizeDelta: {x: -181.14, y: 88.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1569653935

@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Omni-Directional Spawn Strategy", menuName = "Projectile Spawn Strategy/Omni-Directional")]
 public class OmniDirectionalSpawnStrategy : ProjectileSpawnStrategy {
     public float Count;
-    public GameObject Projectile;
     public override void Fire(Transform origin) {
         Transform player = origin.parent;
         for (float angle = -180f; angle < 180f; angle += 360f / Count) {
