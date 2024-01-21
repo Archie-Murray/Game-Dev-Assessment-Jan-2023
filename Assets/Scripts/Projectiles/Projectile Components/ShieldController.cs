@@ -4,7 +4,6 @@ public class ShieldController : MonoBehaviour {
 
     [SerializeField] private float _angleDelta;
     [SerializeField] private float _rotationSpeed;
-
     public void Init(float angleDelta, float rotationSpeed) {
         _angleDelta = angleDelta;
         _rotationSpeed = rotationSpeed;
