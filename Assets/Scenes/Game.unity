@@ -7978,7 +7978,7 @@ MonoBehaviour:
   _spawnPoints: []
   _target: {fileID: 0}
   _spawnCount: 0
-  _maxSpawnCount: 0
+  _maxSpawnCount: 10
   _enemyProjectile: {fileID: 1856523593294180473, guid: 4592c0f54bb799c49aa78148d13e730c, type: 3}
   _enemySpawner:
     _enemyPrefab: {fileID: 0}

@@ -25,7 +25,10 @@ namespace Boss {
         }
 
         private void FixedUpdate() {
-            transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z + (_turnSpeed * Time.fixedDeltaTime), Vector3.forward);
+            transform.rotation = Quaternion.AngleAxis(
+                transform.rotation.eulerAngles.z + (_turnSpeed * Time.fixedDeltaTime), 
+                Vector3.forward
+            );
             _durationTimer.Update(Time.fixedDeltaTime);
             _damageTimer?.Update(Time.fixedDeltaTime);
             if (_durationTimer.IsFinished) {

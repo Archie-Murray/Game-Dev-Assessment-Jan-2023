@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class SawBladeProjectile : MonoBehaviour {
-    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _rotationSpeed = 1.0f;
 
     public void Init(float damage, float tickRate, float rotationSpeed) {
         _rotationSpeed = rotationSpeed;
@@ -12,6 +12,10 @@ public class SawBladeProjectile : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z + _rotationSpeed * Mathf.PI * 2f * Time.fixedDeltaTime, Vector3.forward);
+        print($"Rotating: {name} at speed: {_rotationSpeed}");
+        transform.rotation = Quaternion.AngleAxis(
+            transform.rotation.eulerAngles.z + (_rotationSpeed * Mathf.PI * 2f * Time.fixedDeltaTime), 
+            Vector3.forward
+        );
     }
 }

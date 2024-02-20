@@ -17,6 +17,6 @@ MonoBehaviour:
   Duration: 4
   Speed: 5
   Damage: 5
-  Prefab: {fileID: 8931076602785402290, guid: 18ba3fa40a6cf4d48907611b04cf4bea, type: 3}
+  Projectile: {fileID: 8931076602785402290, guid: 18ba3fa40a6cf4d48907611b04cf4bea, type: 3}
   RotationSpeed: 2
   DamageRate: 10
