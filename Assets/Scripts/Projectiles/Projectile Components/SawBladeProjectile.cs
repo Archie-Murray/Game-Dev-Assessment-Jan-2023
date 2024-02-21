@@ -12,9 +12,8 @@ public class SawBladeProjectile : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        print($"Rotating: {name} at speed: {_rotationSpeed}");
         transform.rotation = Quaternion.AngleAxis(
-            transform.rotation.eulerAngles.z + (_rotationSpeed * Mathf.PI * 2f * Time.fixedDeltaTime), 
+            transform.rotation.eulerAngles.z + (_rotationSpeed * 360f * Time.fixedDeltaTime), 
             Vector3.forward
         );
     }

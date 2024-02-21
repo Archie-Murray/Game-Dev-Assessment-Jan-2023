@@ -31,6 +31,6 @@ public class SawBladeController : MonoBehaviour {
     }
 
     public void FixedUpdate() {
-        transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z + _rotationSpeed * Mathf.PI * 2f * Time.fixedDeltaTime, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(transform.rotation.eulerAngles.z + (_rotationSpeed * 360f * Time.fixedDeltaTime), Vector3.forward);
     }
 }
