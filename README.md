@@ -8,7 +8,7 @@ and so I wanted to experiment with shaders, with most of the project visuals com
 second thing I wanted to implement was a highly modular system for a shooting system and for a boss.
 
 ## Screenshots:
-[Screenshot of gameplay showing the different projectile types](Dev/Gameplay.png)
+![Screenshot of gameplay showing the different projectile types](./Dev/Gameplay.png)
 
 ## Credits:
 - UI Assets: https://opengameart.org/content/assets-ui-minimalism-scifi
