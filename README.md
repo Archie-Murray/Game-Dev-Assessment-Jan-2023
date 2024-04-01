@@ -7,6 +7,9 @@ The project I wanted to create was a 2D top down sci-fi shooter as I wanted to u
 and so I wanted to experiment with shaders, with most of the project visuals coming from a glow shader. The 
 second thing I wanted to implement was a highly modular system for a shooting system and for a boss.
 
+## Screenshots:
+[Screenshot of gameplay showing the different projectile types](./Dev/Gameplay.png)
+
 ## Credits:
 - UI Assets: https://opengameart.org/content/assets-ui-minimalism-scifi
 - UI Icons: https://opengameart.org/content/icons-weapon-properties (used as a base for some)
