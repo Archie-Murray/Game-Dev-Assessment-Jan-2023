@@ -17,6 +17,7 @@ namespace Enemy {
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private CountDownTimer _spawnTimer = new CountDownTimer(5f);
         [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private Health _health;
 
         public Transform[] WanderPoints { get { return _wanderPoints; } }
         public Transform Target { get { return _target; } }
@@ -29,6 +30,11 @@ namespace Enemy {
             _wanderPoints = Array.ConvertAll(FindObjectsOfType<WanderPoint>(), (WanderPoint point) => point.transform);
             _spawnPoints = Array.ConvertAll(GetComponentsInChildren<EnemySpawnPoint>(), (EnemySpawnPoint point) => point.transform);
             _enemySpawner = new EnemySpawner(new RandomSpawnStrategy(_spawnPoints), _enemyPrefab);
+            _health = GetComponent<Health>();
+            _health.OnDeath += () => {
+                _spawnCount = _maxSpawnCount;
+                _spawnTimer.Stop();
+            };
         }
 
         private void FixedUpdate() {

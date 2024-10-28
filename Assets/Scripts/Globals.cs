@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 public class Globals : Singleton<Globals> {
-    public int Money = 0;
+    public int Money = 100;
     public bool TutorialMode = true;
     public Camera MainCamera;
     private MoneyDisplay _moneyReadout;
@@ -24,6 +24,6 @@ public class Globals : Singleton<Globals> {
 
     public void AddMoney(int amount) {
         Money += amount;
-        _moneyReadout.OrNull()?.UpdateMoney(Money);
+        _moneyReadout.OrNull()?.UpdateMoney(amount, Money);
     }
 }
